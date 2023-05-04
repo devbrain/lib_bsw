@@ -239,7 +239,7 @@ if (DEFINED bsw_SHARED_LIBS)
     set(BUILD_SHARED_LIBS "${bsw_SHARED_LIBS}")
 endif ()
 
-generate_export_header(bsw EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/include/bsw/export.h)
+generate_export_header(bsw EXPORT_FILE_NAME ${PROJECT_CONFIG_INCLUDE}/bsw/export.h)
 target_compile_definitions(
         bsw
         PUBLIC "$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:BSW_STATIC_DEFINE>"
@@ -258,8 +258,8 @@ set_target_properties(bsw PROPERTIES
 target_include_directories(bsw
         PUBLIC
             "$<BUILD_INTERFACE:${PROJECT_INCLUDE}>"
-            ${CMAKE_CURRENT_BINARY_DIR}/include/
-        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_CONFIG_INCLUDE}
+            ${PROJECT_CONFIG_INCLUDE}
+        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
         )
 target_compile_features(bsw PUBLIC cxx_std_17)
 target_link_libraries(bsw
