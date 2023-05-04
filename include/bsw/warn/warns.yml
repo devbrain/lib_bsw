@@ -1,0 +1,102 @@
+misuse-comma:
+  clang:
+    ver: 50000
+    warn: -Wcomma
+unused-template:
+  clang:
+    ver: 50000
+    warn: -Wunused-template
+zero-as-null-pointer-constant:
+  clang:
+    ver: 50000
+    warn: -Wzero-as-null-pointer-constant
+64to32:
+  clang: -Wshorten-64-to-32
+  msvc: 4307
+ambigous-ellipsis:
+  clang: -Wambiguous-ellipsis
+cast_align:
+  clang: -Wcast-align
+  gcc: -Wstrict-aliasing
+cmp_signed_unsigned:
+  clang: -Wsign-compare
+  gcc: -Wsign-compare
+const_cast:
+  clang: -Wcast-qual
+  gcc: -Wcast-qual
+conversion:
+  clang: -Wconversion
+  gcc: -Wconversion
+covered-switch-default:
+  clang: -Wcovered-switch-default
+deprected:
+  clang: -Wdeprecated
+disabled_macro_exp:
+  clang: -Wdisabled-macro-expansion
+double_promotion:
+  clang: -Wdouble-promotion
+exit_destructor:
+  clang: -Wexit-time-destructors
+extra-semi:
+  clang: -Wextra-semi
+float_equal:
+  clang: -Wfloat-equal
+global_constructor:
+  clang: -Wglobal-constructors
+ignore_return_value:
+  clang: -Wunused-result
+  gcc: -Wunused-result
+implicit-fallthrough:
+  clang: -Wimplicit-fallthrough
+missing-prototypes:
+  clang: -Wmissing-prototypes
+missing_field_init:
+  clang: -Wmissing-field-initializers
+missing_var_decl:
+  clang: -Wmissing-variable-declarations
+noexcept:
+  clang: -Wdeprecated
+non-template-friend:
+  gcc: -Wnon-template-friend
+old_style_cast:
+  clang: -Wold-style-cast
+overloaded-virtual:
+  clang: -Woverloaded-virtual
+reserved_macro:
+  clang: -Wreserved-id-macro
+shadow_param:
+  clang: -Wshadow
+  gcc: -Wshadow
+sign_conversion:
+  clang: -Wsign-conversion
+  gcc: -Wsign-conversion
+string-conversion:
+  clang: -Wstring-conversion
+switch_enum:
+  clang: -Wswitch-enum
+  gcc: -Wswitch-enum
+undefined-internal:
+  clang: -Wundefined-internal
+undefined_inline:
+  clang: -Wundefined-inline
+unknown_pragma:
+  clang: -Wunknown-pragmas
+  gcc: -Wunknown-pragmas
+unneeded-internal-declaration:
+  clang: -Wunneeded-internal-declaration
+unneeded-member-function:
+  clang: -Wunneeded-member-function
+unreachable:
+  clang: -Wunreachable-code
+unreachable_break:
+  clang: -Wunreachable-code-break
+unused_macro:
+  clang: -Wunused-macros
+unused_param:
+  clang: -Wunused-parameter
+  gcc: -Wunused-parameter
+warn_undef:
+  clang: -Wundef
+  gcc: -Wundef
+weak_vtables:
+  clang: -Wweak-vtables

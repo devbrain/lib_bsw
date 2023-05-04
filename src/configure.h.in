@@ -1,0 +1,6 @@
+#ifndef BSW_CONFIG_H
+#define BSW_CONFIG_H
+
+#define BSW_IS_LITTLE_ENDIAN @BSW_IS_LITTLE_ENDIAN@
+
+#endif
