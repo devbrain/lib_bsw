@@ -14,7 +14,6 @@ install(TARGETS bsw EXPORT bsw_Targets
 
 install(DIRECTORY
             "${bsw_SOURCE_DIR}/include/"
-            "${bsw_BINARY_DIR}/include/"
             "${bsw_BINARY_DIR}/src/include/"
         TYPE INCLUDE
         COMPONENT bsw_Development)
