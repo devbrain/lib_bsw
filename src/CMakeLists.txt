@@ -249,11 +249,6 @@ if (MSVC)
 else()
     target_compile_options(bsw PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
-target_include_directories(
-        bsw
-            PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>"
-            PRIVATE ${CMAKE_CURRENT_BINARY_DIR}
-        )
 
 add_library(bsw::bsw ALIAS bsw)
 set_target_properties(bsw PROPERTIES
@@ -261,7 +256,9 @@ set_target_properties(bsw PROPERTIES
         SOVERSION ${bsw_VERSION_MAJOR})
 
 target_include_directories(bsw
-        PUBLIC "$<BUILD_INTERFACE:${PROJECT_INCLUDE}>"
+        PUBLIC
+            "$<BUILD_INTERFACE:${PROJECT_INCLUDE}>"
+            ${CMAKE_CURRENT_BINARY_DIR}/include/
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_CONFIG_INCLUDE}
         )
 target_compile_features(bsw PUBLIC cxx_std_17)
