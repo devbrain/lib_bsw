@@ -6,6 +6,7 @@
 #define BSW_NUMBER_PARSER_HH
 
 #include <string>
+#include <cstdint>
 #include <bsw/export.h>
 
 namespace bsw {
