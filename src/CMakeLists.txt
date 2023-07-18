@@ -191,6 +191,8 @@ set (src
 
         ${PROJECT_INCLUDE}/bsw/byte_order.hh
         ${PROJECT_INCLUDE}/bsw/override.hh
+        ${PROJECT_INCLUDE}/bsw/dlfcn.hh
+        dlfcn.cc
 
         ${PROJECT_INCLUDE}/bsw/spimpl.h
         ${PROJECT_INCLUDE}/bsw/switch_by_string.hh
