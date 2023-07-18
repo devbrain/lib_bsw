@@ -91,15 +91,15 @@ namespace bsw {
 //
 // some macro trickery to automate the method implementation
 //
-#define d_BSW_IMPLEMENT_BYTEORDER_NOOP_(op, type)            \
+#define d_BSW_IMPLEMENT_BYTEORDER_NOOP_(op, type)           \
   inline type bsw::byte_order::op(type value)               \
-  {                                                                     \
-    return value;                                                       \
+  {                                                         \
+    return value;                                           \
   }
-#define d_BSW_IMPLEMENT_BYTEORDER_FLIP_(op, type)            \
+#define d_BSW_IMPLEMENT_BYTEORDER_FLIP_(op, type)           \
   inline type bsw::byte_order::op(type value)               \
-  {                                                                     \
-    return flip_bytes(value);                                           \
+  {                                                         \
+    return flip_bytes(value);                               \
   }
 
 #define d_BSW_IMPLEMENT_BYTEORDER_NOOP(op)              \
