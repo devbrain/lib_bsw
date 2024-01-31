@@ -142,7 +142,7 @@ namespace bsw::io {
 		openmode _mode;
 	};
 
-	using basic_buffered_stream_buf = basic_buffered_bidi_stream_buf<char, std::char_traits<char>>;
+	using buffered_bidi_stream_buf = basic_buffered_bidi_stream_buf<char, std::char_traits<char>>;
 }
 
 #endif
