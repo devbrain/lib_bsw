@@ -22,7 +22,7 @@ namespace bsw::logger
     std::shared_ptr<logger::record> rec = std::make_shared<logger::record> (SEVERITY, locus_);			            \
     ::bsw::logger::priv::multi_setter_c ms (*rec.get ());					                                        \
     ms.set (__VA_ARGS__) ;						                                                                	\
-    ::bsw::logger::logger::post_record (rec);							                                                            \
+    ::bsw::logger::post_record (rec);							                                                            \
   } while (0)
 
 #if !defined(TRACE_LEVEL)
