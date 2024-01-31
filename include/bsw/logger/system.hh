@@ -3,15 +3,15 @@
 
 #include <list>
 
-#include "bsw/logger/logger_fwd.hh"
-#include "bsw/bsw_api.h"
+#include <bsw/logger/logger_fwd.hh>
+#include <bsw/export.h>
 
-namespace logger
+namespace bsw::logger
 {
 
-    void BSW_API add_device(device_ptr_t device);
-    void BSW_API post(record_ptr_t record);
-    void BSW_API shutdown();
+    void BSW_EXPORT add_device(const device_ptr_t& device);
+    void BSW_EXPORT post(const record_ptr_t& record);
+    void BSW_EXPORT shutdown();
 
     class auto_logger
     {

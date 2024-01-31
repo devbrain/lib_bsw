@@ -3,11 +3,9 @@
 
 #include <iosfwd>
 
-#include "bsw/logger/logger_fwd.hh"
+#include <bsw/logger/logger_fwd.hh>
 
-
-
-namespace logger
+namespace bsw::logger
 {
     class formatter
     {
@@ -20,7 +18,7 @@ namespace logger
         void start(std::ostream& stream);
         void done(std::ostream& stream);
 
-        void print(const record_ptr_t record, std::ostream& stream);
+        void print(const record_ptr_t& record, std::ostream& stream);
     private:
 #include <bsw/warn/push.hh>
 #include <bsw/warn/dll_interface>

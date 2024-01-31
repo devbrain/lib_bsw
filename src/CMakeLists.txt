@@ -50,6 +50,7 @@ function(GENERATE_WARN INTERNAL_NAME)
         endif()
         set (MSVC_SUPPORT 1)
     endif()
+    message("GENERATING  ${CMAKE_CURRENT_BINARY_DIR}/include/bsw/warn/${INTERNAL_NAME}" )
     file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/bsw/warn)
     set (GENERATED_FILE  ${CMAKE_CURRENT_BINARY_DIR}/include/bsw/warn/${INTERNAL_NAME} )
     configure_file( ${PROJECT_INCLUDE}/bsw/warn/warn_config.h.in ${GENERATED_FILE} @ONLY)
@@ -212,6 +213,56 @@ set (src
 
         ${PROJECT_INCLUDE}/bsw/id.hh
         ${PROJECT_INCLUDE}/bsw/builtin.h
+
+        logger/abstract_printer.cc
+        logger/active_object.cc
+        logger/console.cc
+        logger/console_printer.cc
+        logger/debug_device.cc
+        logger/device.cc
+        logger/file_device.cc
+        logger/formatter.cc
+        logger/layout.cc
+        logger/layout_commands.cc
+        logger/level.cc
+        logger/local_device.cc
+        logger/locus.cc
+        logger/logger_helper.cc
+        logger/log_record_layout.cc
+        logger/predicate.cc
+        logger/record.cc
+        logger/rotating_device.cc
+        logger/simple_printer.cc
+        logger/standard_layout.cc
+        logger/system.cc
+        logger/thread_id.cc
+        ${PROJECT_INCLUDE}/bsw/logger/abstract_printer.hh
+        ${PROJECT_INCLUDE}/bsw/logger/active_object.hh
+        ${PROJECT_INCLUDE}/bsw/logger/console.hh
+        ${PROJECT_INCLUDE}/bsw/logger/console_printer.hh
+        ${PROJECT_INCLUDE}/bsw/logger/debug_device.hh
+        ${PROJECT_INCLUDE}/bsw/logger/device.hh
+        ${PROJECT_INCLUDE}/bsw/logger/file_device.hh
+        ${PROJECT_INCLUDE}/bsw/logger/formatter.hh
+        ${PROJECT_INCLUDE}/bsw/logger/function_name.hh
+        ${PROJECT_INCLUDE}/bsw/logger/layout_commands.hh
+        ${PROJECT_INCLUDE}/bsw/logger/layout.hh
+        ${PROJECT_INCLUDE}/bsw/logger/level.hh
+        ${PROJECT_INCLUDE}/bsw/logger/local_device.hh
+        ${PROJECT_INCLUDE}/bsw/logger/locus.hh
+        ${PROJECT_INCLUDE}/bsw/logger/logger_fwd.hh
+        ${PROJECT_INCLUDE}/bsw/logger/logger_helper.hh
+        ${PROJECT_INCLUDE}/bsw/logger/logger.hh
+        ${PROJECT_INCLUDE}/bsw/logger/log_record_layout.hh
+        ${PROJECT_INCLUDE}/bsw/logger/multi_setter.hh
+        ${PROJECT_INCLUDE}/bsw/logger/predicate.hh
+        ${PROJECT_INCLUDE}/bsw/logger/record.hh
+        ${PROJECT_INCLUDE}/bsw/logger/rotating_device.hh
+        ${PROJECT_INCLUDE}/bsw/logger/simple_printer.hh
+        ${PROJECT_INCLUDE}/bsw/logger/standard_layout.hh
+        ${PROJECT_INCLUDE}/bsw/logger/system.hh
+        ${PROJECT_INCLUDE}/bsw/logger/thread_id.hh
+
         )
 # --------------------------------------------------------------------------------
 # LIBRARY
@@ -263,7 +314,9 @@ target_include_directories(bsw
             "$<BUILD_INTERFACE:${PROJECT_CONFIG_INCLUDE}>"
             "$<INSTALL_INTERFACE:include>"
 
-        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+        PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}
+            ${CMAKE_CURRENT_BINARY_DIR}/include
         )
 target_compile_features(bsw PUBLIC cxx_std_17)
 target_link_libraries(bsw

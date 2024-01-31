@@ -3,20 +3,17 @@
 
 #include <iosfwd>
 
+namespace bsw::logger {
+	enum level_t {
+		eDEBUG,
+		eINFO,
+		eNOTICE,
+		eWARNING,
+		eERROR,
+		eFATAL
+	};
 
-namespace logger
-{
-    enum level_t
-    {
-        eDEBUG,
-        eINFO,
-        eNOTICE,
-        eWARNING,
-        eERROR,
-        eFATAL
-    };
-
-    std::ostream& operator << (std::ostream& os, level_t level);
+	std::ostream& operator<< (std::ostream& os, level_t level);
 
 } // ns logger
 

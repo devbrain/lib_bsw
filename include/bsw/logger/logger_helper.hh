@@ -6,12 +6,12 @@
 #include "bsw/logger/record.hh"
 #include "bsw/logger/multi_setter.hh"
 
-#include "bsw/bsw_api.h"
+#include "bsw/export.h"
 
-namespace logger
+namespace bsw::logger
 {
-    void BSW_API disable();
-    void BSW_API post_record(std::shared_ptr<logger::record> record);
+    void BSW_EXPORT disable();
+    void BSW_EXPORT post_record(const std::shared_ptr<record>& record);
 
 } // ns logger
 
@@ -21,7 +21,7 @@ namespace logger
     logger::locus locus_ (MODULE, FILE, FUNCTION, LINE);			                                                \
     std::shared_ptr<logger::record> rec = std::make_shared<logger::record> (SEVERITY, locus_);			            \
     logger::priv::multi_setter_c ms (*rec.get ());					                                                \
-    ms.set (__VA_ARGS__) ;						                                                                \
+    ms.set (__VA_ARGS__) ;						                                                                	\
     logger::post_record (rec);							                                                            \
   } while (0)
 
@@ -32,6 +32,8 @@ namespace logger
 #      define TRACE_LEVEL 6
 #   endif
 #endif // TRACE_LEVEL
+
+
 
 #if TRACE_LEVEL > 1
 #define EV_LOGGER_TRACE_EVLOG_FATAL(MODULE, FUNCTION, FILE, LINE, ...)	\

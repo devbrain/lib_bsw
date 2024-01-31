@@ -2,7 +2,7 @@
 #define BSW_LOGGER_STANDARD_LAYOUT_HH
 
 
-namespace logger
+namespace bsw::logger
 {
     class log_record_layout;
 

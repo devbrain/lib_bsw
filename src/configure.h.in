@@ -2,5 +2,5 @@
 #define BSW_CONFIG_H
 
 #define BSW_IS_LITTLE_ENDIAN @BSW_IS_LITTLE_ENDIAN@
-
+#define BSW_IS_64_BIT (@CMAKE_SIZEOF_VOID_P@ == 8)
 #endif

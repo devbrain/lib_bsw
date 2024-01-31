@@ -8,7 +8,7 @@
 
 namespace {
   using queue_t = std::queue<std::function<void ()>>;
-  static queue_t* callbacks = nullptr;
+  queue_t* callbacks = nullptr;
 
   struct queue_init {
 
@@ -39,7 +39,7 @@ namespace {
 
 }
 
-namespace neutrino {
+namespace bsw {
   inline
   void register_at_exit (std::function<void ()> callback) {
     static queue_init static_initializer;

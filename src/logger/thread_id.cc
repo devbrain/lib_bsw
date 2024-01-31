@@ -16,7 +16,7 @@
 #endif
 
 
-namespace mt
+namespace bsw::mt
 {
     thread_id_t current_thread_id()
     {

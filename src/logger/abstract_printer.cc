@@ -1,14 +1,10 @@
-#include "bsw/logger/abstract_printer.hh"
+#include <bsw/logger/abstract_printer.hh>
 
-
-namespace logger
-{
-    abstract_printer::abstract_printer()
-    {
-    }
-    // --------------------------------------------------------------------
-    abstract_printer::~abstract_printer()
-    {
-    }
+namespace bsw::logger {
+	abstract_printer::abstract_printer ()
+	= default;
+	// --------------------------------------------------------------------
+	abstract_printer::~abstract_printer ()
+	= default;
 } // ns logger
 

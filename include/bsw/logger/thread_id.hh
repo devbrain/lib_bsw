@@ -1,14 +1,14 @@
 #ifndef BSW_LOGGER_THREAD_ID_HH
 #define BSW_LOGGER_THREAD_ID_HH
 
-#include "bsw/predef.h"
+#include <bsw/predef.h>
 
 #if defined(PREDEF_COMPILER_MINGW32)
 #include <iosfwd>
 #endif
 
 
-namespace mt
+namespace bsw::mt
 {
     typedef int thread_id_t;
     thread_id_t current_thread_id();
