@@ -8,7 +8,7 @@
 #include <sys/syscall.h>
 #endif
 #endif
-#include "bsw/logger/thread_id.hh"
+#include "bsw/mt/thread_id.hh"
 
 
 #if defined(PREDEF_COMPILER_MINGW32)

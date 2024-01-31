@@ -215,7 +215,6 @@ set (src
         ${PROJECT_INCLUDE}/bsw/builtin.h
 
         logger/abstract_printer.cc
-        logger/active_object.cc
         logger/console.cc
         logger/console_printer.cc
         logger/debug_device.cc
@@ -235,9 +234,7 @@ set (src
         logger/simple_printer.cc
         logger/standard_layout.cc
         logger/system.cc
-        logger/thread_id.cc
         ${PROJECT_INCLUDE}/bsw/logger/abstract_printer.hh
-        ${PROJECT_INCLUDE}/bsw/logger/active_object.hh
         ${PROJECT_INCLUDE}/bsw/logger/console.hh
         ${PROJECT_INCLUDE}/bsw/logger/console_printer.hh
         ${PROJECT_INCLUDE}/bsw/logger/debug_device.hh
@@ -261,7 +258,11 @@ set (src
         ${PROJECT_INCLUDE}/bsw/logger/simple_printer.hh
         ${PROJECT_INCLUDE}/bsw/logger/standard_layout.hh
         ${PROJECT_INCLUDE}/bsw/logger/system.hh
-        ${PROJECT_INCLUDE}/bsw/logger/thread_id.hh
+
+        mt/thread_id.cc
+        mt/active_object.cc
+        ${PROJECT_INCLUDE}/bsw/mt/active_object.hh
+        ${PROJECT_INCLUDE}/bsw/mt/thread_id.hh
 
         )
 # --------------------------------------------------------------------------------

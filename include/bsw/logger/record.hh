@@ -8,7 +8,7 @@
 
 #include <bsw/logger/locus.hh>
 #include <bsw/logger/level.hh>
-#include <bsw/logger/thread_id.hh>
+#include <bsw/mt/thread_id.hh>
 #include <bsw/export.h>
 
 namespace bsw::logger {

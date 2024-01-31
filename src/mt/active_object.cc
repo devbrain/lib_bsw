@@ -1,8 +1,8 @@
 #include <thread>
 #include <memory>
 
-#include <bsw/logger/active_object.hh>
-#include <bsw/logger/logger.hh>
+#include "bsw/mt/active_object.hh"
+#include "bsw/logger/logger.hh"
 
 namespace bsw::mt {
 	// the constructor just launches some amount of workers

@@ -1,5 +1,5 @@
 #include <bsw/predef.h>
-#include <bsw/logger/active_object.hh>
+#include "bsw/mt/active_object.hh"
 
 #include <bsw/logger/system.hh>
 #include <bsw/logger/device.hh>

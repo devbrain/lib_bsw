@@ -1,7 +1,7 @@
 #ifndef BSW_LOGGER_THREAD_ID_HH
 #define BSW_LOGGER_THREAD_ID_HH
 
-#include <bsw/predef.h>
+#include "bsw/predef.h"
 
 #if defined(PREDEF_COMPILER_MINGW32)
 #include <iosfwd>
