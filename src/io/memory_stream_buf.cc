@@ -3,7 +3,7 @@
 //
 
 #include "bsw//io/memory_stream_buf.hh"
-#include "ios_init.hh"
+#include "bsw/io/ios_init.hh"
 
 namespace bsw::io {
 

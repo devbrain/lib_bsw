@@ -8,7 +8,7 @@
 #include <bsw/exception.hh>
 
 #include "io/compression_stream/compression_stream.hh"
-#include "ios_init.hh"
+#include "bsw/io/ios_init.hh"
 
 namespace bsw::io {
   static constexpr std::size_t STREAM_BUFFER_SIZE = 1024;

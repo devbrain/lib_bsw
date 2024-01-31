@@ -6,7 +6,7 @@
 #include <bsw/io/inflating_stream.hh>
 #include <bsw/exception.hh>
 #include "io/compression_stream/compression_stream.hh"
-#include "ios_init.hh"
+#include "bsw/io/ios_init.hh"
 
 namespace bsw::io {
 

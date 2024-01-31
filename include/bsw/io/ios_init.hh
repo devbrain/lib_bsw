@@ -6,7 +6,7 @@
 #define BSW_IOS_INIT_HH
 
 
-// poco_ios_init
+// bsw_ios_init
 //
 // This is a workaround for a bug in the Dinkumware
 // implementation of iostreams.
@@ -53,16 +53,16 @@
 // Some stream implementations, however, require that
 // init() is called in the MyIOS constructor.
 // Therefore we replace each call to init() with
-// the poco_ios_init macro defined below.
+// the bsw_ios_init macro defined below.
 
 
 #if !defined(BSW_IOS_INIT_HACK)
 // Microsoft Visual Studio with Dinkumware STL (but not STLport)
 #	if defined(_MSC_VER) && (!defined(_STLP_MSVC) || defined(_STLP_NO_OWN_IOSTREAMS))
-#		define TE_IOS_INIT_HACK 1
+#		define BSW_IOS_INIT_HACK 1
 // QNX with Dinkumware but not GNU C++ Library
 #	elif defined(__QNX__) && !defined(__GLIBCPP__)
-#		define TE_IOS_INIT_HACK 1
+#		define BSW_IOS_INIT_HACK 1
 #	endif
 #endif
 

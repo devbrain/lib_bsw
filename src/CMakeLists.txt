@@ -109,7 +109,7 @@ set (src
         ${PROJECT_INCLUDE}/bsw/io/binary_reader.hh
         io/binary_writer.cc
         ${PROJECT_INCLUDE}/bsw/io/binary_writer.hh
-        io/ios_init.hh
+        ${PROJECT_INCLUDE}/bsw/io/ios_init.hh
         io/memory_stream_buf.cc
         ${PROJECT_INCLUDE}/bsw/io/memory_stream_buf.hh
         ${PROJECT_INCLUDE}/bsw/io/buffered_stream_buf.hh

@@ -4,7 +4,7 @@
 
 #include <bsw/io/base64.hh>
 #include <bsw/exception.hh>
-#include "ios_init.hh"
+#include "bsw/io/ios_init.hh"
 
 namespace bsw::io {
 
