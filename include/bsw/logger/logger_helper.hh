@@ -16,13 +16,14 @@ namespace bsw::logger
 } // ns logger
 
 
-#define EV_LOGGER_TRACE(SEVERITY, MODULE, FUNCTION, FILE, LINE, ...)	                                            \
-  do {		                                                                            							\
-    ::bsw::logger::locus locus_ (MODULE, FILE, FUNCTION, LINE);			                                            \
-    std::shared_ptr<logger::record> rec = std::make_shared<logger::record> (SEVERITY, locus_);			            \
-    ::bsw::logger::priv::multi_setter_c ms (*rec.get ());					                                        \
-    ms.set (__VA_ARGS__) ;						                                                                	\
-    ::bsw::logger::post_record (rec);							                                                            \
+#define EV_LOGGER_TRACE(SEVERITY, MODULE, FUNCTION, FILE, LINE, ...)	                    \
+  do {                                                                                      \
+    using namespace ::bsw::logger;                                                          \
+    locus locus_ (MODULE, FILE, FUNCTION, LINE);			                                \
+    std::shared_ptr<record> rec = std::make_shared<logger::record> (SEVERITY, locus_);		\
+    priv::multi_setter_c ms (*rec.get ());					                                \
+    ms.set (__VA_ARGS__) ;						                                            \
+    post_record (rec);							                                            \
   } while (0)
 
 #if !defined(TRACE_LEVEL)
