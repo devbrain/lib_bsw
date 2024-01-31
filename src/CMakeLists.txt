@@ -298,7 +298,7 @@ target_compile_definitions(
         PUBLIC "$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:BSW_STATIC_DEFINE>"
         )
 if (MSVC)
-    target_compile_options(bsw PRIVATE /W4 /WX)
+    target_compile_options(bsw PRIVATE /W4)
 else()
     target_compile_options(bsw PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()

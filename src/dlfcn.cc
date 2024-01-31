@@ -58,8 +58,9 @@ typedef ULONG ULONG_PTR;
 #endif
 
 #ifdef _MSC_VER
+#include <intrin.h>
 /* https://docs.microsoft.com/en-us/cpp/intrinsics/returnaddress */
-#pragma intrinsic( _ReturnAddress )
+#pragma intrinsic(_ReturnAddress)
 #else
 /* https://gcc.gnu.org/onlinedocs/gcc/Return-Address.html */
 #ifndef _ReturnAddress
@@ -247,7 +248,7 @@ static HMODULE MyGetModuleHandleFromAddress( const void *addr )
     if( !failed )
     {
         /* If GetModuleHandleExA is available use it with GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS */
-        if( !GetModuleHandleExAPtr( GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, addr, &hModule ) )
+        if( !GetModuleHandleExAPtr( GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)addr, &hModule ) )
             return NULL;
     }
     else
@@ -510,7 +511,7 @@ void *dlsym( void *handle, const char *name )
          */
         if( MyEnumProcessModules( hCurrentProc, NULL, 0, &dwSize ) != 0 )
         {
-            modules = malloc( dwSize );
+            modules = (HMODULE*)malloc( dwSize );
             if( modules )
             {
                 if( MyEnumProcessModules( hCurrentProc, modules, dwSize, &cbNeeded ) != 0 && dwSize == cbNeeded )

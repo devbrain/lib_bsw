@@ -36,7 +36,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include <bsw/bsw_export.h>
+#include <bsw/export.h>
 
 #ifdef __cplusplus
 extern "C" {
