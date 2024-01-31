@@ -20,7 +20,7 @@ namespace bsw::logger
   do {                                                                                      \
     using namespace ::bsw::logger;                                                          \
     locus locus_ (MODULE, FILE, FUNCTION, LINE);			                                \
-    std::shared_ptr<record> rec = std::make_shared<logger::record> (SEVERITY, locus_);		\
+    auto rec = std::make_shared<record> (SEVERITY, locus_);									\
     priv::multi_setter_c ms (*rec.get ());					                                \
     ms.set (__VA_ARGS__) ;						                                            \
     post_record (rec);							                                            \
