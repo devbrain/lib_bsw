@@ -107,7 +107,7 @@ namespace bsw::io {
         return _mode;
       }
 
-    private:
+    protected:
       virtual int read_from_device (char_type* /*buffer*/, std::streamsize /*length*/) {
         return 0;
       }
