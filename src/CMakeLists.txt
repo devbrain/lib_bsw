@@ -50,10 +50,11 @@ function(GENERATE_WARN INTERNAL_NAME)
         endif()
         set (MSVC_SUPPORT 1)
     endif()
-    message("GENERATING  ${CMAKE_CURRENT_BINARY_DIR}/include/bsw/warn/${INTERNAL_NAME}" )
-    file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/bsw/warn)
-    set (GENERATED_FILE  ${CMAKE_CURRENT_BINARY_DIR}/include/bsw/warn/${INTERNAL_NAME} )
-    configure_file( ${PROJECT_INCLUDE}/bsw/warn/warn_config.h.in ${GENERATED_FILE} @ONLY)
+    set (GENERATED_FILE  ${PROJECT_INCLUDE}/bsw/warn/${INTERNAL_NAME} )
+    if(NOT EXISTS "${PROJECT_INCLUDE}/bsw/warn/${INTERNAL_NAME}")
+        message("GENERATING  ${GENERATED_FILE}" )
+        configure_file( ${PROJECT_INCLUDE}/bsw/warn/warn_config.h.in ${GENERATED_FILE} @ONLY)
+    ENDIF()
     list(APPEND warn_hdr ${GENERATED_FILE})
     set (warn_hdr  ${warn_hdr} PARENT_SCOPE)
 endfunction()
@@ -263,7 +264,6 @@ set (src
         mt/active_object.cc
         ${PROJECT_INCLUDE}/bsw/mt/active_object.hh
         ${PROJECT_INCLUDE}/bsw/mt/thread_id.hh
-
         )
 # --------------------------------------------------------------------------------
 # LIBRARY
@@ -314,8 +314,8 @@ target_include_directories(bsw
             "$<BUILD_INTERFACE:${PROJECT_INCLUDE}>"
             "$<BUILD_INTERFACE:${PROJECT_CONFIG_INCLUDE}>"
             "$<INSTALL_INTERFACE:include>"
-            ${CMAKE_CURRENT_BINARY_DIR}/include
         PRIVATE
+            ${CMAKE_CURRENT_BINARY_DIR}/include
             ${CMAKE_CURRENT_SOURCE_DIR}
 
         )
