@@ -314,10 +314,10 @@ target_include_directories(bsw
             "$<BUILD_INTERFACE:${PROJECT_INCLUDE}>"
             "$<BUILD_INTERFACE:${PROJECT_CONFIG_INCLUDE}>"
             "$<INSTALL_INTERFACE:include>"
-
+            ${CMAKE_CURRENT_BINARY_DIR}/include
         PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}
-            ${CMAKE_CURRENT_BINARY_DIR}/include
+
         )
 target_compile_features(bsw PUBLIC cxx_std_17)
 target_link_libraries(bsw
