@@ -3,7 +3,7 @@
 //
 #define LZMA_API_STATIC
 #include "thirdparty/liblzma/src/liblzma/api/lzma.h"
-#include "lzma_stream.hh"
+#include "bsw/io/compression_stream/lzma_stream.hh"
 #include <bsw/exception.hh>
 
 namespace bsw::io {

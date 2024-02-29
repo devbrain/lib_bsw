@@ -2,22 +2,23 @@
 // Created by igor on 24/04/2022.
 //
 
-#ifndef BSW_SRC_UTILS_IO_COMPRESSION_STREAM_LZMA_STREAM_HH
-#define BSW_SRC_UTILS_IO_COMPRESSION_STREAM_LZMA_STREAM_HH
+#ifndef BSW_SRC_UTILS_IO_COMPRESSION_STREAM_BZIP_STREAM_HH
+#define BSW_SRC_UTILS_IO_COMPRESSION_STREAM_BZIP_STREAM_HH
 
 
-#include <io/compression_stream/compression_stream.hh>
-#include <bsw/spimpl.h>
+#include "compression_stream.hh"
+#include "bsw/spimpl.h"
 
 namespace bsw::io {
   namespace detail {
-    struct lzma_impl;
+    struct bzip_impl;
   }
-  class liblzma_stream {
+
+
+  class bzip_stream {
     public:
-    public:
-      liblzma_stream();
-      ~liblzma_stream();
+      bzip_stream();
+      ~bzip_stream();
 
       [[nodiscard]] const uint8_t* next_in() const;
       [[nodiscard]] std::size_t avail_in() const;
@@ -29,19 +30,19 @@ namespace bsw::io {
       void set_next_out(const uint8_t* in);
       void set_avail_out(std::size_t in);
     protected:
-      spimpl::unique_impl_ptr<detail::lzma_impl> m_pimpl;
+      spimpl::unique_impl_ptr<detail::bzip_impl> m_pimpl;
   };
 
-  class lzma_compressor : public compression_stream_impl<liblzma_stream> {
+  class bzip_compressor : public compression_stream_impl<bzip_stream> {
     public:
-      explicit lzma_compressor(compression_level_t level);
+      explicit bzip_compressor(compression_level_t level);
       status_t compress(flush_mode_t flags) override;
       void finalize() override;
   };
 
-  class lzma_decompressor : public decompression_stream_impl<liblzma_stream> {
+  class bzip_decompressor : public decompression_stream_impl<bzip_stream> {
     public:
-      lzma_decompressor();
+      bzip_decompressor();
       status_t decompress(flush_mode_t flags) override;
       void finalize() override;
       void reset() override;
@@ -49,4 +50,4 @@ namespace bsw::io {
 }
 
 
-#endif //BSW_SRC_UTILS_IO_COMPRESSION_STREAM_LZMA_STREAM_HH
+#endif //BSW_SRC_UTILS_IO_COMPRESSION_STREAM_BZIP_STREAM_HH

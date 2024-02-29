@@ -7,7 +7,7 @@
 
 #include <bsw/exception.hh>
 
-#include "bzip_stream.hh"
+#include "bsw/io/compression_stream/bzip_stream.hh"
 namespace bsw::io {
 
   static std::string error2string (int ret) {

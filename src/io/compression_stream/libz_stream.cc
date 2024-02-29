@@ -2,7 +2,7 @@
 // Created by igor on 24/04/2022.
 //
 
-#include "libz_stream.hh"
+#include "bsw/io/compression_stream/libz_stream.hh"
 #include "zstd_wrapper.h"
 #include <bsw/exception.hh>
 #include <sstream>

@@ -2,12 +2,12 @@
 // Created by igor on 24/04/2022.
 //
 
-#include "compression_stream.hh"
+#include "bsw/io/compression_stream/compression_stream.hh"
 #include <bsw/exception.hh>
 
-#include "libz_stream.hh"
-#include "bzip_stream.hh"
-#include "lzma_stream.hh"
+#include "bsw/io/compression_stream/libz_stream.hh"
+#include "bsw/io/compression_stream/bzip_stream.hh"
+#include "bsw/io/compression_stream/lzma_stream.hh"
 
 
 namespace bsw::io {

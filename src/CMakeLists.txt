@@ -4,6 +4,7 @@ include(cmake/liblzma.cmake)
 include(cmake/bz2.cmake)
 include(cmake/zlib.cmake)
 include(cmake/zstd.cmake)
+include(cmake/brotli.cmake)
 
 set(warn_hdr
         ${PROJECT_INCLUDE}/bsw/warn/pop.hh
@@ -123,16 +124,15 @@ set (src
         ${PROJECT_INCLUDE}/bsw/io/stream_copier.hh
         io/stream_copier.cc
         io/compression_stream/compression_stream.cc
-        io/compression_stream/compression_stream.hh
+        ${PROJECT_INCLUDE}/bsw/io/compression_stream/compression_stream.hh
         io/compression_stream/zstd_wrapper.h
         io/compression_stream/zstd_wrapper.c
         io/compression_stream/libz_stream.cc
-        io/compression_stream/libz_stream.hh
+        ${PROJECT_INCLUDE}/bsw/io/compression_stream/libz_stream.hh
         io/compression_stream/bzip_stream.cc
-        io/compression_stream/bzip_stream.hh
+        ${PROJECT_INCLUDE}/bsw/io/compression_stream/bzip_stream.hh
         io/compression_stream/lzma_stream.cc
-        io/compression_stream/lzma_stream.hh
-
+        ${PROJECT_INCLUDE}/bsw/io/compression_stream/lzma_stream.hh
 
         strings/ascii.cc
         ${PROJECT_INCLUDE}/bsw/strings/ascii.hh
@@ -283,6 +283,9 @@ add_library(bsw
         ${liblzma_src}
         ${libz_src}
         ${zstd_src}
+        ${BROTLI_COMMON_SOURCES}
+        ${BROTLI_ENC_SOURCES}
+        ${BROTLI_DEC_SOURCES}
         )
 
 LZMA_TUKLIB_PRESETS()
@@ -297,6 +300,7 @@ generate_export_header(bsw EXPORT_FILE_NAME ${PROJECT_CONFIG_INCLUDE}/bsw/export
 target_compile_definitions(
         bsw
         PUBLIC "$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:BSW_STATIC_DEFINE>"
+        PRIVATE ${BROTLI_DEFS}
         )
 if (MSVC)
     target_compile_options(bsw PRIVATE /W4)
@@ -317,11 +321,13 @@ target_include_directories(bsw
         PRIVATE
             ${CMAKE_CURRENT_BINARY_DIR}/include
             ${CMAKE_CURRENT_SOURCE_DIR}
+            ${BROTLI_INCLUDE_DIRS}
 
         )
 target_compile_features(bsw PUBLIC cxx_std_17)
 target_link_libraries(bsw
         PUBLIC
             ${lzma_system_libs}
+            ${BROTLI_LIBRARIES}
         )
 

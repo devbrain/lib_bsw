@@ -9,7 +9,7 @@
 #include <memory>
 #include <cstddef>
 
-#include <bsw/io/compression_type.hh>
+#include "bsw/io/compression_type.hh"
 
 namespace bsw::io {
   class compression_stream_base {
