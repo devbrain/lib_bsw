@@ -22,8 +22,8 @@ struct CompTypeHolder {
 #define DECLARE_TEST_STRING_PAIR(NAME, T, S1, S2)                   \
   struct PPCAT(PPCAT(NAME,_),T) {                                   \
     static constexpr auto TYPE = compression_type_t::T;             \
-    static constexpr auto m1 = bsw::string_factory(S1); \
-    static constexpr auto m2 = bsw::string_factory(S2); \
+    static constexpr auto m1 = bsw::string_factory(S1); 			\
+    static constexpr auto m2 = bsw::string_factory(S2); 			\
   };                                                                \
   TYPE_TO_STRING(PPCAT(PPCAT(NAME,_),T))
 
@@ -33,7 +33,8 @@ struct CompTypeHolder {
   DECLARE_TEST_STRING_PAIR(NAME, ZLIB_RAW, S1, S2); \
   DECLARE_TEST_STRING_PAIR(NAME, ZSTD, S1, S2);     \
   DECLARE_TEST_STRING_PAIR(NAME, BZ2, S1, S2);      \
-  DECLARE_TEST_STRING_PAIR(NAME, LZMA, S1, S2)
+  DECLARE_TEST_STRING_PAIR(NAME, LZMA, S1, S2);     \
+  DECLARE_TEST_STRING_PAIR(NAME, BROTLI, S1, S2)
 
 DECLARE_TEST_STRING_PAIR_ALL(T0, "", "");
 DECLARE_TEST_STRING_PAIR_ALL(T1, "abcdefabcdefabcdefabcdefabcdefabcdef", "abcdefabcdefabcdefabcdefabcdefabcdef");
@@ -51,6 +52,7 @@ DECLARE_COMPRESSION_TYPE(ZLIB_RAW);
 DECLARE_COMPRESSION_TYPE(ZSTD);
 DECLARE_COMPRESSION_TYPE(BZ2);
 DECLARE_COMPRESSION_TYPE(LZMA);
+DECLARE_COMPRESSION_TYPE(BROTLI);
 
 TEST_CASE_TEMPLATE_DEFINE("test deflate 1", T, test_id1) {
   std::stringstream buffer;
@@ -157,8 +159,8 @@ TEST_CASE_TEMPLATE_DEFINE("test deflate 5", T, test_id5) {
 TEST_SUITE("zlib") {
 
 #define GEN_T(N, ALG) PPCAT(PPCAT(PPCAT(T, N),_),ALG)
-#define GEN_RAW(N) GEN_T(N, ZLIB),  GEN_T(N, ZLIB_RAW), GEN_T(N, ZSTD), GEN_T(N, BZ2), GEN_T(N, LZMA)
-#define ALGS ZLIB, ZLIB_RAW, GZIP, ZSTD, BZ2, LZMA
+#define GEN_RAW(N) GEN_T(N, BROTLI), GEN_T(N, ZLIB),  GEN_T(N, ZLIB_RAW), GEN_T(N, ZSTD), GEN_T(N, BZ2), GEN_T(N, LZMA)
+#define ALGS BROTLI, ZLIB, ZLIB_RAW, GZIP, ZSTD, BZ2, LZMA
 
   TEST_CASE_TEMPLATE_INVOKE(test_id1, GEN_RAW (0));
   TEST_CASE_TEMPLATE_INVOKE(test_id1, GEN_RAW (1));

@@ -8,47 +8,36 @@
 #include "bsw/io/compression_stream/libz_stream.hh"
 #include "bsw/io/compression_stream/bzip_stream.hh"
 #include "bsw/io/compression_stream/lzma_stream.hh"
-
+#include "bsw/io/compression_stream/brotli_stream.hh"
 
 namespace bsw::io {
-  compression_stream_base::~compression_stream_base () = default;
+	compression_stream_base::~compression_stream_base () = default;
 
-  std::unique_ptr<compression_stream> compression_stream::create(compression_type_t type,
-                                                                 compression_level_t level) {
-    switch (type) {
-      case compression_type_t::ZLIB:
-        return std::make_unique<libz_compressor>(libz_kind_t::ZLIB, level);
-      case compression_type_t::GZIP:
-        return std::make_unique<libz_compressor>(libz_kind_t::GZIP, level);
-      case compression_type_t::ZLIB_RAW:
-        return std::make_unique<libz_compressor>(libz_kind_t::RAW, level);
-      case compression_type_t::ZSTD:
-        return std::make_unique<libz_compressor>(libz_kind_t::ZSTD, level);
-      case compression_type_t::BZ2:
-        return std::make_unique<bzip_compressor>(level);
-      case compression_type_t::LZMA:
-        return std::make_unique<lzma_compressor>(level);
-      default:
-        RAISE_EX("Should not be here");
-    }
-  }
+	std::unique_ptr<compression_stream> compression_stream::create (compression_type_t type,
+																	compression_level_t level) {
+		switch (type) {
+			case compression_type_t::ZLIB:return std::make_unique<libz_compressor> (libz_kind_t::ZLIB, level);
+			case compression_type_t::GZIP:return std::make_unique<libz_compressor> (libz_kind_t::GZIP, level);
+			case compression_type_t::ZLIB_RAW:return std::make_unique<libz_compressor> (libz_kind_t::RAW, level);
+			case compression_type_t::ZSTD:return std::make_unique<libz_compressor> (libz_kind_t::ZSTD, level);
+			case compression_type_t::BZ2:return std::make_unique<bzip_compressor> (level);
+			case compression_type_t::LZMA:return std::make_unique<lzma_compressor> (level);
+			case compression_type_t::BROTLI: return std::make_unique<brotli_compressor> ();
 
-  std::unique_ptr<decompression_stream> decompression_stream::create(compression_type_t type) {
-    switch (type) {
-      case compression_type_t::ZLIB:
-        return std::make_unique<libz_decompressor>(libz_kind_t::ZLIB);
-      case compression_type_t::GZIP:
-        return std::make_unique<libz_decompressor>(libz_kind_t::GZIP);
-      case compression_type_t::ZLIB_RAW:
-        return std::make_unique<libz_decompressor>(libz_kind_t::RAW);
-      case compression_type_t::ZSTD:
-        return std::make_unique<libz_decompressor>(libz_kind_t::ZSTD);
-      case compression_type_t::BZ2:
-        return std::make_unique<bzip_decompressor>();
-      case compression_type_t::LZMA:
-        return std::make_unique<lzma_decompressor>();
-      default:
-        RAISE_EX("Should not be here");
-    }
-  }
+			default:RAISE_EX("Should not be here");
+		}
+	}
+
+	std::unique_ptr<decompression_stream> decompression_stream::create (compression_type_t type) {
+		switch (type) {
+			case compression_type_t::ZLIB:return std::make_unique<libz_decompressor> (libz_kind_t::ZLIB);
+			case compression_type_t::GZIP:return std::make_unique<libz_decompressor> (libz_kind_t::GZIP);
+			case compression_type_t::ZLIB_RAW:return std::make_unique<libz_decompressor> (libz_kind_t::RAW);
+			case compression_type_t::ZSTD:return std::make_unique<libz_decompressor> (libz_kind_t::ZSTD);
+			case compression_type_t::BZ2:return std::make_unique<bzip_decompressor> ();
+			case compression_type_t::LZMA:return std::make_unique<lzma_decompressor> ();
+			case compression_type_t::BROTLI: return std::make_unique<brotli_decompressor> ();
+			default:RAISE_EX("Should not be here");
+		}
+	}
 }

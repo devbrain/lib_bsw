@@ -12,7 +12,8 @@ namespace bsw::io {
       ZLIB_RAW,
       ZSTD,
       BZ2,
-      LZMA
+      LZMA,
+	  BROTLI
   };
 
   enum class compression_level_t {

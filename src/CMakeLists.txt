@@ -133,6 +133,8 @@ set (src
         ${PROJECT_INCLUDE}/bsw/io/compression_stream/bzip_stream.hh
         io/compression_stream/lzma_stream.cc
         ${PROJECT_INCLUDE}/bsw/io/compression_stream/lzma_stream.hh
+        io/compression_stream/brotli_stream.cc
+        ${PROJECT_INCLUDE}/bsw/io/compression_stream/brotli_stream.hh
 
         strings/ascii.cc
         ${PROJECT_INCLUDE}/bsw/strings/ascii.hh
