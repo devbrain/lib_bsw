@@ -283,7 +283,7 @@
  for small objects.
 */
 
-                        /* Type declarations */
+                        /* type_t declarations */
 
 #ifndef OF /* function prototypes */
 #  ifdef STDC

@@ -281,6 +281,15 @@ set (src
         digest/sha2.cc
         ${PROJECT_INCLUDE}/bsw/io/digest_stream.hh
         io/digest_stream.cc
+
+        ${PROJECT_INCLUDE}/bsw/uuid.hh
+        uuid.cc
+
+        ${PROJECT_INCLUDE}/bsw/random.hh
+        random.cc
+        ${PROJECT_INCLUDE}/bsw/io/random_stream.hh
+        io/random_stream.cc
+
         )
 # --------------------------------------------------------------------------------
 # LIBRARY
