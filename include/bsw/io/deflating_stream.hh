@@ -14,6 +14,7 @@
 #include <bsw/spimpl.h>
 
 namespace bsw::io {
+	class compression_stream;
 
   /**
    This is the streambuf class used by DeflatingInputStream and DeflatingOutputStream.
@@ -28,11 +29,11 @@ namespace bsw::io {
       /// Creates a DeflatingStreamBuf for compressing data read
       /// from the given input stream.
       deflating_stream_buf (std::istream& istr, compression_type_t type, compression_level_t level);
-
+	  deflating_stream_buf (std::istream& istr, compression_stream* cstr);
       /// Creates a DeflatingStreamBuf for compressing data passed
       /// through and forwarding it to the given output stream.
       deflating_stream_buf (std::ostream& ostr, compression_type_t type, compression_level_t level);
-
+	  deflating_stream_buf (std::ostream& ostr, compression_stream* cstr);
 
       ~deflating_stream_buf () override;
 
@@ -65,11 +66,15 @@ namespace bsw::io {
                               compression_level_t level = compression_level_t::NORMAL);
 
 
+	  deflating_ios (std::ostream& ostr, compression_stream* cstr);
+
       /// Creates a DeflatingIOS for compressing data read
       /// from the given input stream.
       explicit deflating_ios (std::istream& istr,
                               compression_type_t type = compression_type_t::ZLIB,
                               compression_level_t level = compression_level_t::NORMAL);
+
+	  deflating_ios (std::istream& istr, compression_stream* cstr);
 
       ~deflating_ios () override;
 
@@ -97,7 +102,7 @@ namespace bsw::io {
                                         compression_type_t type = compression_type_t::ZLIB,
                                         compression_level_t level = compression_level_t::NORMAL);
 
-
+	  deflating_output_stream (std::ostream& ostr, compression_stream* cstr);
       ~deflating_output_stream () override;
 
 
@@ -120,7 +125,7 @@ namespace bsw::io {
       explicit deflating_input_stream (std::istream& istr,
                                        compression_type_t type = compression_type_t::ZLIB,
                                        compression_level_t level = compression_level_t::NORMAL);
-
+	  deflating_input_stream (std::istream& istr, compression_stream* cstr);
       ~deflating_input_stream () override;
   };
 

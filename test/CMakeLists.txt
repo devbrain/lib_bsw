@@ -16,7 +16,10 @@ add_executable(unittest
         bsw/io/binary_reader_writer.cc
         bsw/io/memory_stream.cc
         bsw/io/zlib_test.cc
+        bsw/io/tee_stream_test.cc
+        bsw/io/stream_copy_test.cc
         bsw/test_id.cc
+        bsw/digest/test_digest.cc
         )
 
 target_link_libraries(unittest

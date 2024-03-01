@@ -13,6 +13,8 @@
 #include <bsw/spimpl.h>
 
 namespace bsw::io {
+
+	class decompression_stream;
   /// This is the streambuf class used by InflatingInputStream and InflatingOutputStream.
   /// The actual work is delegated to zlib (see http://zlib.net).
   /// Both zlib (deflate) streams and gzip streams are supported.
@@ -23,10 +25,12 @@ namespace bsw::io {
       /// Creates an InflatingStreamBuf for expanding the compressed data read from
       /// the give input stream.
       inflating_stream_buf (std::istream& istr, compression_type_t type);
+	  inflating_stream_buf (std::istream& istr, decompression_stream* dstr);
 
       /// Creates an InflatingStreamBuf for expanding the compressed data passed through
       /// and forwarding it to the given output stream.
       inflating_stream_buf (std::ostream& ostr, compression_type_t type);
+	  inflating_stream_buf (std::ostream& ostr, decompression_stream* dstr);
 
       ~inflating_stream_buf () override;
 
@@ -59,10 +63,14 @@ namespace bsw::io {
                               compression_type_t type = compression_type_t::ZLIB);
 
 
+	  inflating_ios (std::ostream& ostr, decompression_stream* dstr);
+
       /// Creates an InflatingIOS for expanding the compressed data read from
       /// the given input stream.
       explicit inflating_ios (std::istream& istr,
                               compression_type_t type = compression_type_t::ZLIB);
+
+	  inflating_ios (std::istream& ostr, decompression_stream* dstr);
 
       /// Destroys the InflatingIOS.
       ~inflating_ios () override;
@@ -87,6 +95,7 @@ namespace bsw::io {
                                         compression_type_t type = compression_type_t::ZLIB);
 
 
+	  inflating_output_stream (std::ostream& ostr, decompression_stream* dstr);
 
       ~inflating_output_stream () override;
 
@@ -115,6 +124,7 @@ namespace bsw::io {
       explicit inflating_input_stream (std::istream& istr,
                                        compression_type_t type = compression_type_t::ZLIB);
 
+	  inflating_input_stream (std::istream& istr, decompression_stream* dstr);
 
       ~inflating_input_stream () override;
 

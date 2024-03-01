@@ -83,7 +83,7 @@ namespace bsw::io {
 		ENFORCE(*enc);
 		BrotliEncoderOperation ops = BROTLI_OPERATION_PROCESS;
 		switch (flags) {
-			case NO_FLUSH:break;
+			case NO_FLUSH:
 				ops = BROTLI_OPERATION_PROCESS;
 				break;
 			case PARTIAL_FLUSH:

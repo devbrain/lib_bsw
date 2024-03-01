@@ -123,6 +123,8 @@ set (src
         ${PROJECT_INCLUDE}/bsw/io/compression_type.hh
         ${PROJECT_INCLUDE}/bsw/io/stream_copier.hh
         io/stream_copier.cc
+        ${PROJECT_INCLUDE}/bsw/io/tee_stream.hh
+        io/tee_stream.cc
         io/compression_stream/compression_stream.cc
         ${PROJECT_INCLUDE}/bsw/io/compression_stream/compression_stream.hh
         io/compression_stream/zstd_wrapper.h
@@ -266,6 +268,17 @@ set (src
         mt/active_object.cc
         ${PROJECT_INCLUDE}/bsw/mt/active_object.hh
         ${PROJECT_INCLUDE}/bsw/mt/thread_id.hh
+
+        ${PROJECT_INCLUDE}/bsw/digest/digest_engine.hh
+        digest/digest_engine.cc
+        ${PROJECT_INCLUDE}/bsw/digest/md4.hh
+        digest/md4.cc
+        ${PROJECT_INCLUDE}/bsw/digest/md5.hh
+        digest/md5.cc
+        ${PROJECT_INCLUDE}/bsw/digest/sha1.hh
+        digest/sha1.cc
+        ${PROJECT_INCLUDE}/bsw/digest/sha2.hh
+        digest/sha2.cc
         )
 # --------------------------------------------------------------------------------
 # LIBRARY
