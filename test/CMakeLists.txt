@@ -20,6 +20,7 @@ add_executable(unittest
         bsw/io/stream_copy_test.cc
         bsw/test_id.cc
         bsw/digest/test_digest.cc
+        bsw/io/digest_stream_test.cc
         )
 
 target_link_libraries(unittest

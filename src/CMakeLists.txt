@@ -279,6 +279,8 @@ set (src
         digest/sha1.cc
         ${PROJECT_INCLUDE}/bsw/digest/sha2.hh
         digest/sha2.cc
+        ${PROJECT_INCLUDE}/bsw/io/digest_stream.hh
+        io/digest_stream.cc
         )
 # --------------------------------------------------------------------------------
 # LIBRARY
