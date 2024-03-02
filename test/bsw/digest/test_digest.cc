@@ -7,10 +7,28 @@
 #include <bsw/digest/md5.hh>
 #include <bsw/digest/sha1.hh>
 #include <bsw/digest/sha2.hh>
+#include <bsw/digest/crc32.hh>
 
 using namespace bsw;
 
 TEST_SUITE("digest test") {
+	TEST_CASE("crc32") {
+		crc32_engine engine;
+		engine.update ("");
+		REQUIRE (digest_engine::digest_to_hex (engine.digest ()) == "00000000");
+		engine.update ("a");
+		REQUIRE (digest_engine::digest_to_hex (engine.digest ()) == "e8b7be43");
+		engine.update ("abc");
+		REQUIRE (digest_engine::digest_to_hex (engine.digest ()) == "352441c2");
+		engine.update ("message digest");
+		REQUIRE (digest_engine::digest_to_hex (engine.digest ()) == "20159d7f");
+		engine.update ("abcdefghijklmnopqrstuvwxyz");
+		REQUIRE (digest_engine::digest_to_hex (engine.digest ()) == "4c2750bd");
+		engine.update ("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+		REQUIRE (digest_engine::digest_to_hex (engine.digest ()) == "1fc2e6d2");
+		engine.update ("12345678901234567890123456789012345678901234567890123456789012345678901234567890");
+		REQUIRE (digest_engine::digest_to_hex (engine.digest ()) == "7ca94a72");
+	}
 	TEST_CASE("md4") {
 		md4_engine engine;
 

@@ -180,6 +180,7 @@ local void write_table(out, table)
  */
 #include "crc32.h"
 
+
 #endif /* DYNAMIC_CRC_TABLE */
 
 /* =========================================================================
@@ -443,3 +444,5 @@ uLong ZEXPORT crc32_combine64 (crc1, crc2, len2)
 {
   return crc32_combine_ (crc1, crc2, len2);
 }
+
+

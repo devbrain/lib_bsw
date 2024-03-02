@@ -23,6 +23,7 @@ add_executable(unittest
         bsw/io/digest_stream_test.cc
         bsw/test_uuid.cc
         bsw/test_random.cc
+        bsw/uri_test.cc
         )
 
 target_link_libraries(unittest

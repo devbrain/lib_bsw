@@ -281,15 +281,25 @@ set (src
         digest/sha2.cc
         ${PROJECT_INCLUDE}/bsw/io/digest_stream.hh
         io/digest_stream.cc
+        ${PROJECT_INCLUDE}/bsw/digest/crc32.hh
+        digest/crc32.cc
 
         ${PROJECT_INCLUDE}/bsw/uuid.hh
         uuid.cc
+
+        ${PROJECT_INCLUDE}/bsw/uri.hh
+        uri.cc
 
         ${PROJECT_INCLUDE}/bsw/random.hh
         random.cc
         ${PROJECT_INCLUDE}/bsw/io/random_stream.hh
         io/random_stream.cc
 
+        ${PROJECT_INCLUDE}/bsw/environment.hh
+        environment.cc
+
+        # ${PROJECT_INCLUDE}/bsw/uuid_generator.hh
+        #  uuid_generator.cc
         )
 # --------------------------------------------------------------------------------
 # LIBRARY
