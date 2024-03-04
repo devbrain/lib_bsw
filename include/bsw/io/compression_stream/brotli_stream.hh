@@ -4,8 +4,10 @@
 
 #ifndef BSW_INCLUDE_BSW_IO_COMPRESSION_STREAM_BROTLI_STREAM_HH_
 #define BSW_INCLUDE_BSW_IO_COMPRESSION_STREAM_BROTLI_STREAM_HH_
-#include "compression_stream.hh"
-#include "bsw/spimpl.h"
+
+#include <bsw/export.h>
+#include <bsw/io/compression_stream/compression_stream.hh>
+#include <bsw/spimpl.h>
 
 namespace bsw::io {
 	namespace detail {
@@ -13,7 +15,7 @@ namespace bsw::io {
 	}
 
 
-	class brotli_stream {
+	class BSW_EXPORT brotli_stream {
 	 public:
 		brotli_stream();
 		~brotli_stream();
@@ -31,7 +33,7 @@ namespace bsw::io {
 		spimpl::unique_impl_ptr<detail::brotli_impl> m_pimpl;
 	};
 
-	class brotli_compressor : public compression_stream_impl<brotli_stream> {
+	class BSW_EXPORT brotli_compressor : public compression_stream_impl<brotli_stream> {
 	 public:
 		brotli_compressor();
 		~brotli_compressor() override;
@@ -39,7 +41,7 @@ namespace bsw::io {
 		void finalize() override;
 	};
 
-	class brotli_decompressor : public decompression_stream_impl<brotli_stream> {
+	class BSW_EXPORT brotli_decompressor : public decompression_stream_impl<brotli_stream> {
 	 public:
 		brotli_decompressor();
 		~brotli_decompressor() override;

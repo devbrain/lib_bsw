@@ -6,8 +6,9 @@
 #define BSW_SRC_UTILS_IO_COMPRESSION_STREAM_BZIP_STREAM_HH
 
 
-#include "compression_stream.hh"
-#include "bsw/spimpl.h"
+#include <bsw/export.h>
+#include <bsw/io/compression_stream/compression_stream.hh>
+#include <bsw/spimpl.h>
 
 namespace bsw::io {
   namespace detail {
@@ -15,7 +16,7 @@ namespace bsw::io {
   }
 
 
-  class bzip_stream {
+  class BSW_EXPORT bzip_stream {
     public:
       bzip_stream();
       ~bzip_stream();
@@ -33,14 +34,14 @@ namespace bsw::io {
       spimpl::unique_impl_ptr<detail::bzip_impl> m_pimpl;
   };
 
-  class bzip_compressor : public compression_stream_impl<bzip_stream> {
+  class BSW_EXPORT bzip_compressor : public compression_stream_impl<bzip_stream> {
     public:
       explicit bzip_compressor(compression_level_t level);
       status_t compress(flush_mode_t flags) override;
       void finalize() override;
   };
 
-  class bzip_decompressor : public decompression_stream_impl<bzip_stream> {
+  class BSW_EXPORT bzip_decompressor : public decompression_stream_impl<bzip_stream> {
     public:
       bzip_decompressor();
       status_t decompress(flush_mode_t flags) override;

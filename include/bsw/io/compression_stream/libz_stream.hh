@@ -5,15 +5,16 @@
 #ifndef BSW_SRC_UTILS_IO_COMPRESSION_STREAM_LIBZ_STREAM_HH
 #define BSW_SRC_UTILS_IO_COMPRESSION_STREAM_LIBZ_STREAM_HH
 
-#include "compression_stream.hh"
-#include "bsw/spimpl.h"
+#include <bsw/export.h>
+#include <bsw/io/compression_stream/compression_stream.hh>
+#include <bsw/spimpl.h>
 
 namespace bsw::io {
   namespace detail {
     struct libz_impl;
   }
 
-  class libz_stream {
+  class BSW_EXPORT libz_stream {
     public:
       libz_stream();
       ~libz_stream();
@@ -38,14 +39,14 @@ namespace bsw::io {
     ZSTD
   };
 
-  class libz_compressor : public compression_stream_impl<libz_stream> {
+  class BSW_EXPORT libz_compressor : public compression_stream_impl<libz_stream> {
     public:
       libz_compressor(libz_kind_t kind, compression_level_t level);
       status_t compress(flush_mode_t flags) override;
       void finalize() override;
   };
 
-  class libz_decompressor : public decompression_stream_impl<libz_stream> {
+  class BSW_EXPORT libz_decompressor : public decompression_stream_impl<libz_stream> {
     public:
       explicit libz_decompressor(libz_kind_t kind);
       status_t decompress(flush_mode_t flags) override;

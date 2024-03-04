@@ -5,15 +5,16 @@
 #ifndef BSW_SRC_UTILS_IO_COMPRESSION_STREAM_LZMA_STREAM_HH
 #define BSW_SRC_UTILS_IO_COMPRESSION_STREAM_LZMA_STREAM_HH
 
-
-#include "compression_stream.hh"
-#include "bsw/spimpl.h"
+#include <bsw/export.h>
+#include <bsw/io/compression_stream/compression_stream.hh>
+#include <bsw/spimpl.h>
 
 namespace bsw::io {
   namespace detail {
     struct lzma_impl;
   }
-  class liblzma_stream {
+
+  class BSW_EXPORT liblzma_stream {
     public:
     public:
       liblzma_stream();
@@ -32,14 +33,14 @@ namespace bsw::io {
       spimpl::unique_impl_ptr<detail::lzma_impl> m_pimpl;
   };
 
-  class lzma_compressor : public compression_stream_impl<liblzma_stream> {
+  class BSW_EXPORT lzma_compressor : public compression_stream_impl<liblzma_stream> {
     public:
       explicit lzma_compressor(compression_level_t level);
       status_t compress(flush_mode_t flags) override;
       void finalize() override;
   };
 
-  class lzma_decompressor : public decompression_stream_impl<liblzma_stream> {
+  class BSW_EXPORT lzma_decompressor : public decompression_stream_impl<liblzma_stream> {
     public:
       lzma_decompressor();
       status_t decompress(flush_mode_t flags) override;

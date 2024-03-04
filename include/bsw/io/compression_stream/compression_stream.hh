@@ -9,10 +9,11 @@
 #include <memory>
 #include <cstddef>
 
-#include "bsw/io/compression_type.hh"
+#include <bsw/io/compression_type.hh>
+#include <bsw/export.h>
 
 namespace bsw::io {
-  class compression_stream_base {
+  class BSW_EXPORT compression_stream_base {
     public:
       enum flush_mode_t {
         NO_FLUSH,
@@ -44,7 +45,7 @@ namespace bsw::io {
       virtual void finalize() = 0;
   };
 
-  class compression_stream : public compression_stream_base {
+  class BSW_EXPORT compression_stream : public compression_stream_base {
     public:
       virtual status_t compress(flush_mode_t flags) = 0;
 
@@ -52,7 +53,7 @@ namespace bsw::io {
                                                         compression_level_t level);
   };
 
-  class decompression_stream : public compression_stream_base {
+  class BSW_EXPORT decompression_stream : public compression_stream_base {
     public:
       virtual status_t decompress(flush_mode_t flags) = 0;
       virtual void reset() = 0;
