@@ -26,6 +26,8 @@ namespace bsw {
 
 		exception (exception&&) = default;
 
+		exception(exception&) = default;
+
 		~exception () override = default;
 
 		const char* what () const noexcept override;
@@ -74,7 +76,7 @@ namespace bsw {
 		int m_line;
 		std::string m_text;
 
-		std::unique_ptr<exception> m_chain;
+		std::shared_ptr<exception> m_chain;
 		mutable std::string m_what;
 
 		static bool s_use_function_sig;

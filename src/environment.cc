@@ -2,6 +2,8 @@
 // Created by igor on 3/2/24.
 //
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <cstdio>
 #include <cstdlib>
 #include <bsw/environment.hh>
@@ -12,7 +14,7 @@
 class  EnvironmentImpl
 {
 public:
-	typedef UInt8 NodeId[6]; /// Ethernet address.
+	typedef uint8_t NodeId[6]; /// Ethernet address.
 
 	static std::string getImpl(const std::string& name);
 	static bool hasImpl(const std::string& name);
@@ -25,40 +27,42 @@ public:
 	static void nodeIdImpl(NodeId& id);
 	static unsigned processorCountImpl();
 };
-#include "Poco/Environment_WIN32U.h"
-#include "Poco/Exception.h"
-#include "Poco/UnicodeConverter.h"
-#include "Poco/Buffer.h"
+
+#include <bsw/strings/wchar.hh>
+#include <vector>
 #include <sstream>
 #include <cstring>
-#include "Poco/UnWindows.h"
+#define WIN32_LEAN_AND_MEAN
+#pragma warning(disable: 4996)
+#include <Windows.h>
 #include <winsock2.h>
 #include <wincrypt.h>
 #include <ws2ipdef.h>
 #include <iphlpapi.h>
 
 
-namespace Poco {
-
 
 std::string EnvironmentImpl::getImpl(const std::string& name)
 {
-	std::wstring uname;
-	UnicodeConverter::toUTF16(name, uname);
+	std::wstring uname = bsw::utf8_to_wstring(name);
+	
 	DWORD len = GetEnvironmentVariableW(uname.c_str(), 0, 0);
-	if (len == 0) throw NotFoundException(name);
-	Buffer<wchar_t> buffer(len);
-	GetEnvironmentVariableW(uname.c_str(), buffer.begin(), len);
-	std::string result;
-	UnicodeConverter::toUTF8(buffer.begin(), len - 1, result);
+	if (len == 0) {
+		RAISE_EX("Can not find env. variable ", name);
+	}
+		
+	std::vector<wchar_t> buffer(len + 1);
+	GetEnvironmentVariableW(uname.c_str(), buffer.data(), len);
+	buffer[len] = 0;
+	std::string result = bsw::wstring_to_utf8(buffer.data());
+	
 	return result;
 }
 
 
 bool EnvironmentImpl::hasImpl(const std::string& name)
 {
-	std::wstring uname;
-	UnicodeConverter::toUTF16(name, uname);
+	std::wstring uname = bsw::utf8_to_wstring(name);
 	DWORD len = GetEnvironmentVariableW(uname.c_str(), 0, 0);
 	return len > 0;
 }
@@ -66,15 +70,11 @@ bool EnvironmentImpl::hasImpl(const std::string& name)
 
 void EnvironmentImpl::setImpl(const std::string& name, const std::string& value)
 {
-	std::wstring uname;
-	std::wstring uvalue;
-	UnicodeConverter::toUTF16(name, uname);
-	UnicodeConverter::toUTF16(value, uvalue);
-	if (SetEnvironmentVariableW(uname.c_str(), uvalue.c_str()) == 0)
-	{
-		std::string msg = "cannot set environment variable: ";
-		msg.append(name);
-		throw SystemException(msg);
+	std::wstring uname = bsw::utf8_to_wstring(name);
+	std::wstring uvalue = bsw::utf8_to_wstring(value);
+	
+	if (SetEnvironmentVariableW(uname.c_str(), uvalue.c_str()) == 0) {
+		RAISE_EX("cannot set environment variable: ", name);
 	}
 }
 
@@ -83,7 +83,9 @@ std::string EnvironmentImpl::osNameImpl()
 {
 	OSVERSIONINFO vi;
 	vi.dwOSVersionInfoSize = sizeof(vi);
-	if (GetVersionEx(&vi) == 0) throw SystemException("Cannot get OS version information");
+	if (GetVersionEx(&vi) == 0) {
+		RAISE_EX("Cannot get OS version information");
+	}
 	switch (vi.dwPlatformId)
 	{
 	case VER_PLATFORM_WIN32s:
@@ -102,7 +104,9 @@ std::string EnvironmentImpl::osDisplayNameImpl()
 {
 	OSVERSIONINFOEX vi;	// OSVERSIONINFOEX is supported starting at Windows 2000
 	vi.dwOSVersionInfoSize = sizeof(vi);
-	if (GetVersionEx((OSVERSIONINFO*) &vi) == 0) throw SystemException("Cannot get OS version information");
+	if (GetVersionEx((OSVERSIONINFO*)&vi) == 0) {
+		RAISE_EX("Cannot get OS version information");
+	}
 	switch (vi.dwMajorVersion)
 	{
 	case 10:
@@ -147,11 +151,12 @@ std::string EnvironmentImpl::osVersionImpl()
 {
 	OSVERSIONINFOW vi;
 	vi.dwOSVersionInfoSize = sizeof(vi);
-	if (GetVersionExW(&vi) == 0) throw SystemException("Cannot get OS version information");
+	if (GetVersionExW(&vi) == 0) {
+		RAISE_EX ("Cannot get OS version information");
+	}
 	std::ostringstream str;
 	str << vi.dwMajorVersion << "." << vi.dwMinorVersion << " (Build " << (vi.dwBuildNumber & 0xFFFF);
-	std::string version;
-	UnicodeConverter::toUTF8(vi.szCSDVersion, version);
+	std::string version = bsw::wstring_to_utf8(vi.szCSDVersion);
 	if (!version.empty()) str << ": " << version;
 	str << ")";
 	return str.str();
@@ -192,9 +197,10 @@ std::string EnvironmentImpl::nodeNameImpl()
 {
 	wchar_t name[MAX_COMPUTERNAME_LENGTH + 1];
 	DWORD size = MAX_COMPUTERNAME_LENGTH + 1;
-	if (GetComputerNameW(name, &size) == 0) throw SystemException("Cannot get computer name");
-	std::string result;
-	UnicodeConverter::toUTF8(name, result);
+	if (GetComputerNameW(name, &size) == 0) {
+		RAISE_EX ("Cannot get computer name");
+	}
+	std::string result = bsw::wstring_to_utf8(name);
 	return result;
 }
 
