@@ -14,7 +14,7 @@ namespace bsw::memory_mapped_file {
 	typedef int HANDLE;
 #endif
 
-	class base_mmf {
+	class BSW_EXPORT base_mmf {
 	 public:
 		explicit base_mmf ();
 		~base_mmf ();
@@ -53,7 +53,7 @@ namespace bsw::memory_mapped_file {
 #endif
 	};
 
-	class read_only_mmf : public base_mmf {
+	class BSW_EXPORT read_only_mmf : public base_mmf {
 	 public:
 		explicit read_only_mmf (char const* pathname, bool map_all = true);
 		explicit read_only_mmf (wchar_t const* pathname, bool map_all = true);
@@ -77,7 +77,7 @@ namespace bsw::memory_mapped_file {
 		if_doesnt_exist_create,
 	};
 
-	class writable_mmf : public base_mmf {
+	class BSW_EXPORT writable_mmf : public base_mmf {
 	 public:
 		explicit writable_mmf (char const* pathname = nullptr,
 							   mmf_exists_mode exists_mode = if_exists_fail,
