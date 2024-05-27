@@ -1,8 +1,11 @@
 //
 // Created by igor on 3/1/24.
 //
+#include <set>
 #include <doctest/doctest.h>
 #include <bsw/uuid.hh>
+#include <bsw/uuid_generator.hh>
+#include <bsw/digest/sha1.hh>
 
 using namespace bsw;
 
@@ -143,4 +146,60 @@ TEST_SUITE("UUID") {
 		REQUIRE (notUuid.is_null ());
 	}
 
+}
+
+TEST_SUITE("UUID Generator") {
+	TEST_CASE("Test time based") {
+		uuid_generator& gen = uuid_generator::default_generator ();
+
+		std::set<uuid> uuids;
+		for (int i = 0; i < 1000; ++i) {
+			auto uuid = gen.create ();
+			REQUIRE_EQ(uuid.version (), uuid::UUID_TIME_BASED);
+			REQUIRE_EQ(uuids.find (uuid), uuids.end ());
+			uuids.insert (uuid);
+		}
+	}
+
+	TEST_CASE("Test random") {
+		uuid_generator& gen = uuid_generator::default_generator ();
+
+		std::set<uuid> uuids;
+		for (int i = 0; i < 1000; ++i) {
+			auto uuid = gen.create_random ();
+			REQUIRE_EQ(uuid.version (), uuid::UUID_RANDOM);
+			REQUIRE_EQ(uuids.find (uuid), uuids.end ());
+			uuids.insert (uuid);
+		}
+	}
+
+	TEST_CASE("test name based") {
+		uuid_generator& gen = uuid_generator::default_generator ();
+
+		auto uuid1 = gen.create_from_name (uuid::uri (), "http://www.appinf.com/uuid");
+		REQUIRE_EQ(uuid1.version (), uuid::UUID_NAME_BASED);
+		REQUIRE_EQ(uuid1.variant (), 2);
+
+		auto uuid2 = gen.create_from_name (uuid::uri (), "http://www.appinf.com/uuid2");
+		REQUIRE_NE(uuid2, uuid1);
+
+		auto uuid3 = gen.create_from_name (uuid::dns (), "www.appinf.com");
+		REQUIRE_NE(uuid3, uuid1);
+
+		auto uuid4 = gen.create_from_name (uuid::oid (), "1.3.6.1.4.1");
+		REQUIRE_NE (uuid4, uuid1);
+
+		auto uuid5 = gen
+			.create_from_name (uuid::x500 (), "cn=Guenter Obiltschnig, ou=People, o=Applied Informatics, c=at");
+		REQUIRE_NE(uuid5, uuid1);
+
+		auto uuid6 = gen.create_from_name (uuid::uri (), "http://www.appinf.com/uuid");
+		REQUIRE_EQ(uuid6, uuid1);
+
+		sha1_engine sha1;
+		auto uuid7 = gen.create_from_name (uuid::uri (), "http://www.appinf.com/uuid", sha1);
+		REQUIRE_EQ (uuid7.version (), uuid::UUID_NAME_BASED_SHA1);
+		REQUIRE_EQ(uuid7.variant (), 2);
+		REQUIRE_NE(uuid7, uuid1);
+	}
 }

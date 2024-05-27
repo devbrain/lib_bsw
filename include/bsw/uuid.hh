@@ -137,7 +137,7 @@ namespace bsw {
 		uint16_t _clockSeq;
 		uint8_t _node[6];
 
-		friend class UUIDGenerator;
+		friend class uuid_generator;
 	};
 
 //

@@ -298,8 +298,11 @@ set (src
         ${PROJECT_INCLUDE}/bsw/environment.hh
         environment.cc
 
-        # ${PROJECT_INCLUDE}/bsw/uuid_generator.hh
-        #  uuid_generator.cc
+        ${PROJECT_INCLUDE}/bsw/shm.hh
+        shm.cc
+
+        ${PROJECT_INCLUDE}/bsw/uuid_generator.hh
+        uuid_generator.cc
         )
 # --------------------------------------------------------------------------------
 # LIBRARY
@@ -333,10 +336,13 @@ if (DEFINED bsw_SHARED_LIBS)
 endif ()
 
 generate_export_header(bsw EXPORT_FILE_NAME ${PROJECT_CONFIG_INCLUDE}/bsw/export.h)
+
+
+
 target_compile_definitions(
         bsw
         PUBLIC "$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:BSW_STATIC_DEFINE>"
-        PRIVATE ${BROTLI_DEFS}
+        PRIVATE ${BROTLI_DEFS} _LARGEFILE64_SOURCE
         )
 if (MSVC)
     target_compile_options(bsw PRIVATE /W4)
