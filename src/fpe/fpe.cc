@@ -2,7 +2,9 @@
 // Created by igor on 25/07/2021.
 //
 #if defined(_MSC_VER)
-#define _CRT_SECURE_NO_WARNINGS
+    #if !defined(_CRT_SECURE_NO_WARNINGS)
+        #define _CRT_SECURE_NO_WARNINGS
+    #endif
 #endif
 
 #include <bsw/fpe/fpe.hh>

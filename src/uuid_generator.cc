@@ -85,7 +85,10 @@ namespace bsw {
 			now = std::chrono::steady_clock::now ();
 		}
 		auto tv = now.time_since_epoch ().count ();
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data_op>
 		return tv + m_ticks;
+#include <bsw/warn/pop.hh>
 	}
 
 	uuid uuid_generator::create_one () {

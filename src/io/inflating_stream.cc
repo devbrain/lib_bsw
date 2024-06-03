@@ -148,7 +148,10 @@ namespace bsw::io {
 			}
 			if (rc == compression_stream::STREAM_END) {
 				m_pimpl->m_eof = true;
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data>
 				return static_cast<int>(length) - m_pimpl->m_decompressor->avail_out ();
+#include <bsw/warn/pop.hh>
 			}
 			if (rc != compression_stream::OK) {
 				RAISE_EX("Corrupted data");
@@ -163,7 +166,10 @@ namespace bsw::io {
 					n = static_cast<int>(m_pimpl->m_istr->gcount ());
 				}
 				if (n > 0) {
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data>
 					m_pimpl->m_decompressor->set_next_in ((unsigned char*)m_pimpl->m_buffer.data ());
+#include <bsw/warn/pop.hh>
 					m_pimpl->m_decompressor->set_avail_in (n);
 				} else {
 					return static_cast<int>(length) - m_pimpl->m_decompressor->avail_out ();

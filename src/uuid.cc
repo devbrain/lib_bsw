@@ -36,7 +36,8 @@ namespace bsw {
 		ENFORCE (auuid);
 		parse (std::string (auuid));
 	}
-
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data_op>
 	uuid::uuid (uint32_t timeLow, uint32_t timeMid, uint32_t timeHiAndVersion, uint16_t clockSeq, uint8_t node[])
 		:
 		_timeLow (timeLow),
@@ -45,7 +46,7 @@ namespace bsw {
 		_clockSeq (clockSeq) {
 		std::memcpy (_node, node, sizeof (_node));
 	}
-
+#include <bsw/warn/pop.hh>
 	uuid::uuid (const char* bytes, version_t version) {
 		uint32_t i32;
 		uint16_t i16;
@@ -143,8 +144,10 @@ namespace bsw {
 			if (n1 < 0) { return false; }
 			int16_t n2 = nibble (*it++);
 			if (n2 < 0) { return false; }
-
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data_op>
 			i = (n1 << 4) | n2;
+#include <bsw/warn/pop.hh>
 		}
 		swap (newUUID);
 

@@ -194,7 +194,10 @@ namespace bsw::io {
 							 ->compress (m_pimpl->m_eof ? compression_stream::FINISH : compression_stream::NO_FLUSH);
 			if (m_pimpl->m_eof && rc == compression_stream::STREAM_END) {
 				m_pimpl->m_istr = nullptr;
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data>
 				return static_cast<int>(length) - m_pimpl->m_compressor->avail_out ();
+#include <bsw/warn/pop.hh>
 			}
 
 			if (m_pimpl->m_compressor->avail_out () == 0) {

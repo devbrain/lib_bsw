@@ -289,9 +289,11 @@ namespace bsw::memory_mapped_file {
 							  - (offset_ - offset_ / granularity_ * granularity_);
 			size_t real_mapped_size = mapped_size_ + (data_ - real_data);
 #if defined(_WIN32)
+
 			return ::FlushViewOfFile(real_data, real_mapped_size) != 0
 				&& FlushFileBuffers(file_handle_) != 0;
 			if (::FlushViewOfFile(real_data, real_mapped_size) == 0) return false;
+
 #else
 			if (::msync (real_data, real_mapped_size, MS_SYNC) != 0) { return false; }
 #endif

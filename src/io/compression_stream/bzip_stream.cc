@@ -90,7 +90,10 @@ namespace bsw::io {
   }
 
   void bzip_stream::set_avail_in (std::size_t in) {
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data>
     m_pimpl->avail_in = in;
+#include <bsw/warn/pop.hh>
   }
 
   void bzip_stream::set_next_out (const uint8_t* in) {
@@ -98,7 +101,10 @@ namespace bsw::io {
   }
 
   void bzip_stream::set_avail_out (std::size_t in) {
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data>
     m_pimpl->avail_out = in;
+#include <bsw/warn/pop.hh>
   }
 
   bzip_compressor::bzip_compressor(compression_level_t level) {

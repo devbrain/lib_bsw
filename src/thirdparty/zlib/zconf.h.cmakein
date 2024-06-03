@@ -7,8 +7,13 @@
 
 #ifndef ZCONF_H
 #define ZCONF_H
-#cmakedefine Z_PREFIX
-#cmakedefine Z_HAVE_UNISTD_H
+
+#cmakedefine HAVE_SYS_TYPES_H @HAVE_SYS_TYPES_H@
+#cmakedefine HAVE_STDINT_H @HAVE_STDINT_H@
+#cmakedefine HAVE_STDDEF_H @HAVE_STDDEF_H@
+#cmakedefine HAVE_UNISTD_H @HAVE_UNISTD_H@
+#cmakedefine Z_PREFIX @Z_PREFIX@
+
 
 /*
  * If you *really* need a unique prefix for all types and library functions,
@@ -477,7 +482,7 @@ typedef unsigned long z_crc_t;
 #  define Z_HAVE_UNISTD_H
 #endif
 #ifndef Z_SOLO
-#  if defined(Z_HAVE_UNISTD_H) || defined(_LARGEFILE64_SOURCE)
+#  if defined(Z_HAVE_UNISTD_H) && defined(_LARGEFILE64_SOURCE)
 #    include <unistd.h>         /* for SEEK_*, off_t, and _LFS64_LARGEFILE */
 
 #    ifdef VMS

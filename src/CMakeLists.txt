@@ -70,8 +70,17 @@ endfunction()
     GENERATE_WARN("reserved_macro" CLANG "-Wreserved-id-macro")
     GENERATE_WARN("dll_interface" MSVC 4251)
     GENERATE_WARN("dll_interface_base" MSVC 4275)
+    GENERATE_WARN("possible_loss_of_data" MSVC 4267)
+    GENERATE_WARN("possible_loss_of_data_op" MSVC 4244)
+    GENERATE_WARN("unreachable_code" MSVC 4702)
+    GENERATE_WARN("define_deprecated" MSVC 4996)
+
+
+
 # SOURCES ------------------------------------------------------------------------
 set (src
+         ${PROJECT_INCLUDE}/bsw/export.h
+
         ${PROJECT_INCLUDE}/bsw/mp/callable/helpers.hpp
         ${PROJECT_INCLUDE}/bsw/mp/callable/callable.hpp
         ${PROJECT_INCLUDE}/bsw/mp/callable/function.hpp
@@ -312,8 +321,13 @@ test_big_endian(IS_BIG_ENDIAN)
 if (NOT IS_BIG_ENDIAN)
     set(BSW_IS_LITTLE_ENDIAN 1)
 endif ()
+
 file(MAKE_DIRECTORY ${PROJECT_CONFIG_INCLUDE}/bsw)
 configure_file(configure.h.in ${PROJECT_CONFIG_INCLUDE}/bsw/bsw_config.h @ONLY)
+
+if (DEFINED bsw_SHARED_LIBS)
+    set(BUILD_SHARED_LIBS "${bsw_SHARED_LIBS}")
+endif ()
 
 add_library(bsw
         ${src}
@@ -329,26 +343,28 @@ add_library(bsw
 
 LZMA_TUKLIB_PRESETS()
 
+generate_export_header(bsw EXPORT_FILE_NAME ${PROJECT_CONFIG_INCLUDE}/bsw/export_defines.h)
 
+if (MSVC)
+    foreach(source_file IN LISTS bz2_src liblzma_src libz_src zstd_src BROTLI_COMMON_SOURCES BROTLI_ENC_SOURCES BROTLI_DEC_SOURCES)
+        set_source_files_properties(${source_file} PROPERTIES COMPILE_FLAGS /W0)
+    endforeach()
+endif()
 
-if (DEFINED bsw_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS "${bsw_SHARED_LIBS}")
-endif ()
-
-generate_export_header(bsw EXPORT_FILE_NAME ${PROJECT_CONFIG_INCLUDE}/bsw/export.h)
-
-
+foreach(source_file IN LISTS src)
+    if (MSVC)
+       set_source_files_properties(${source_file} PROPERTIES COMPILE_FLAGS /W4)
+    else()
+       set_source_files_properties(${source_file} PROPERTIES COMPILE_FLAGS -Wall -Wextra -pedantic -Werror)
+    endif()    
+endforeach()
 
 target_compile_definitions(
         bsw
         PUBLIC "$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:BSW_STATIC_DEFINE>"
-        PRIVATE ${BROTLI_DEFS} _LARGEFILE64_SOURCE
+        PRIVATE ${BROTLI_DEFS} _LARGEFILE64_SOURCE  _CRT_SECURE_NO_WARNINGS
         )
-if (MSVC)
-    target_compile_options(bsw PRIVATE /W4)
-else()
-    target_compile_options(bsw PRIVATE -Wall -Wextra -pedantic -Werror)
-endif()
+
 
 add_library(bsw::bsw ALIAS bsw)
 set_target_properties(bsw PROPERTIES
@@ -367,9 +383,15 @@ target_include_directories(bsw
 
         )
 target_compile_features(bsw PUBLIC cxx_std_17)
+set (win32_libs )
+if (WIN32) 
+    set (win32_libs Iphlpapi.lib)
+endif()
+
 target_link_libraries(bsw
         PUBLIC
             ${lzma_system_libs}
             ${BROTLI_LIBRARIES}
+            ${win32_libs}
         )
 

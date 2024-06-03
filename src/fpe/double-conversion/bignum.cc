@@ -138,7 +138,10 @@ namespace double_conversion {
       }
     }
     if (tmp > 0) {
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data_op>
       RawBigit (used_bigits_++) = tmp;
+#include <bsw/warn/pop.hh>
     }
     Clamp ();
   }
@@ -190,7 +193,10 @@ namespace double_conversion {
       const Chunk my = (bigit_pos < used_bigits_) ? RawBigit (bigit_pos) : 0;
       const Chunk sum = my + carry;
       RawBigit (bigit_pos) = sum & kBigitMask;
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data_op>
       carry = sum >> kBigitSize;
+#include <bsw/warn/pop.hh>
       ++bigit_pos;
     }
     used_bigits_ = (std::max) (bigit_pos, static_cast<int>(used_bigits_));
@@ -217,7 +223,10 @@ namespace double_conversion {
     while (borrow != 0) {
       const Chunk difference = RawBigit (i + offset) - borrow;
       RawBigit (i + offset) = difference & kBigitMask;
+#include <bsw/warn/push.hh>
+#include <bsw/warn/possible_loss_of_data_op>
       borrow = difference >> (kChunkSize - 1);
+#include <bsw/warn/pop.hh>
       ++i;
     }
     Clamp ();

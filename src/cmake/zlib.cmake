@@ -32,12 +32,48 @@ endif ()
 #
 # Check for unistd.h
 #
-check_include_file(unistd.h Z_HAVE_UNISTD_H)
+check_include_file(unistd.h HAVE_UNISTD_H)
 
 if (MSVC)
     list(APPEND libz_defines _CRT_SECURE_NO_DEPRECATE)
     list(APPEND libz_defines _CRT_NONSTDC_NO_DEPRECATE)
 endif ()
+
+#
+# Check to see if we have large file support
+#
+
+# We add these other definitions here because CheckTypeSize.cmake
+# in CMake 2.4.x does not automatically do so and we want
+# compatibility with CMake 2.4.x.
+if(HAVE_SYS_TYPES_H)
+    list(APPEND libz_defines HAVE_SYS_TYPES_H=1)
+endif()
+if(HAVE_STDINT_H)
+    list(APPEND libz_defines HAVE_STDINT_H=1)
+endif()
+if(HAVE_STDDEF_H)
+    list(APPEND libz_defines HAVE_STDDEF_H=1)
+endif()
+check_type_size(off64_t OFF64_T)
+
+if(HAVE_OFF64_T)
+    list(APPEND libz_defines _LARGEFILE64_SOURCE=1)
+endif()
+set(CMAKE_REQUIRED_DEFINITIONS) # clear variable
+
+#
+# Check for fseeko
+#
+check_function_exists(fseeko HAVE_FSEEKO)
+if(NOT HAVE_FSEEKO)
+    add_definitions(-DNO_FSEEKO)
+endif()
+if(HAVE_UNISTD_H)
+    list(APPEND libz_defines HAVE_UNISTD_H=1)
+endif()
+
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/zlib/zconf.h.cmakein
         ${CMAKE_CURRENT_BINARY_DIR}/zconf.h @ONLY)
 set(libz_src

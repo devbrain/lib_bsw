@@ -12,6 +12,8 @@
 #include <memory>
 #include <bsw/macros.hh>
 
+
+
 namespace bsw {
 
 	class BSW_EXPORT exception : public std::exception {

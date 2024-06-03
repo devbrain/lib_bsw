@@ -4,7 +4,7 @@
 
 #include <doctest/doctest.h>
 #include <bsw/uri.hh>
-
+#include <bsw/predef.h>
 
 using namespace bsw;
 
@@ -771,6 +771,7 @@ TEST_SUITE("uri test") {
 	}
 
 	TEST_CASE("test from path") {
+#if !defined(PREDEF_OS_WINDOWS)
 		std::filesystem::path path1 ("/var/www/site/index.html");
 		uri uri1 (path1);
 		REQUIRE (uri1.to_string () == "file:///var/www/site/index.html");
@@ -779,9 +780,10 @@ TEST_SUITE("uri test") {
 		uri uri2 (path2);
 		REQUIRE (uri2.to_string () == "file:///var/www/site/with%20space.html");
 
-//		std::filesystem::path path3 ("c:\\www\\index.html");
-//		uri uri3 (path3);
-//		REQUIRE (uri3.to_string () == "file:///c:/www/index.html");
+		//std::filesystem::path path3 ("c:\\www\\index.html");
+		//uri uri3 (path3);
+		//REQUIRE (uri3.to_string () == "file:///c:/www/index.html");
+#endif
 	}
 
 	TEST_CASE("test query params") {

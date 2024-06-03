@@ -140,7 +140,10 @@ namespace bsw::io {
       default:
         THROW;
     }
+#include <bsw/warn/push.hh>
+#include <bsw/warn/unreachable_code>
     THROW;
+#include <bsw/warn/pop.hh>
   }
 
   void lzma_compressor::finalize() {
@@ -168,7 +171,10 @@ namespace bsw::io {
       default:
         THROW;
     }
+#include <bsw/warn/push.hh>
+#include <bsw/warn/unreachable_code>
     THROW;
+#include <bsw/warn/pop.hh>
   }
 
   void lzma_decompressor::finalize() {

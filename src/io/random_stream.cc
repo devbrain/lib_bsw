@@ -9,6 +9,8 @@
 #include <bsw/random.hh>
 
 #if defined(PREDEF_OS_WINDOWS)
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
 #include <wincrypt.h>
 #else
 #include <fcntl.h>

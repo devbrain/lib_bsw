@@ -7,8 +7,10 @@
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
 #elif defined(_MSC_VER)
-#pragma warning( disable : 4090 4100 4267 )
-#define _CRT_SECURE_NO_WARNINGS
+    #pragma warning( disable : 4090 4100 4267 )
+    #if !defined(_CRT_SECURE_NO_WARNINGS)
+        #define _CRT_SECURE_NO_WARNINGS
+    #endif
 #endif
 
 #include <stdlib.h>

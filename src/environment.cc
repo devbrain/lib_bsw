@@ -2,7 +2,12 @@
 // Created by igor on 3/2/24.
 //
 
-#define _CRT_SECURE_NO_WARNINGS
+#if defined(_MSC_VER)
+	#if !defined(_CRT_SECURE_NO_WARNINGS)
+		#define _CRT_SECURE_NO_WARNINGS
+	#endif
+#endif
+
 
 #include <cstdio>
 #include <cstdlib>
