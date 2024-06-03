@@ -355,7 +355,7 @@ foreach(source_file IN LISTS src)
     if (MSVC)
        set_source_files_properties(${source_file} PROPERTIES COMPILE_FLAGS /W4)
     else()
-       set_source_files_properties(${source_file} PROPERTIES COMPILE_FLAGS -Wall -Wextra -pedantic -Werror)
+       set_source_files_properties(${source_file} PROPERTIES COMPILE_FLAGS "-Wall -Wextra -pedantic -Werror")
     endif()    
 endforeach()
 
