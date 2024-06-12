@@ -87,6 +87,9 @@ set (src
         ${PROJECT_INCLUDE}/bsw/mp/callable/member_function.hpp
         ${PROJECT_INCLUDE}/bsw/mp/callable/functor.hpp
 
+        ${PROJECT_INCLUDE}/bsw/mp/primitive.hh
+        ${PROJECT_INCLUDE}/bsw/mp/arithmetic_traits.hh
+
         ${PROJECT_INCLUDE}/bsw/mp/type_name/type_name.msvc.hpp
         ${PROJECT_INCLUDE}/bsw/mp/type_name/type_name.gcc.7_3.hpp
         ${PROJECT_INCLUDE}/bsw/mp/type_name/type_name.hpp
@@ -312,7 +315,7 @@ set (src
 
         ${PROJECT_INCLUDE}/bsw/uuid_generator.hh
         uuid_generator.cc
-        )
+)
 # --------------------------------------------------------------------------------
 # LIBRARY
 # --------------------------------------------------------------------------------
