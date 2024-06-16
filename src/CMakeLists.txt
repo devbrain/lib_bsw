@@ -396,5 +396,6 @@ target_link_libraries(bsw
             ${lzma_system_libs}
             ${BROTLI_LIBRARIES}
             ${win32_libs}
+            cpptrace::cpptrace
         )
 

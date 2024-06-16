@@ -11,12 +11,11 @@
 #include <stdexcept>
 #include <memory>
 #include <bsw/macros.hh>
-
-
+#include <cpptrace/cpptrace.hpp>
 
 namespace bsw {
 
-	class BSW_EXPORT exception : public std::exception {
+	class BSW_EXPORT exception : public cpptrace::runtime_error {
 	 public:
 		static bool use_function_signature (bool v);
 	 public:
@@ -91,7 +90,8 @@ namespace bsw {
 	template <typename ... Args>
 	inline
 	exception::exception (const char* function, const char* source, int line, Args&& ... args)
-		: m_function (function),
+		: cpptrace::runtime_error (_create (false, function, source, line, std::forward<Args> (args)...)),
+	   	  m_function (function),
 		  m_source (source),
 		  m_line (line),
 		  m_text (_create (false, function, source, line, std::forward<Args> (args)...)) {
@@ -100,7 +100,8 @@ namespace bsw {
 	// --------------------------------------------------------------------------------------------------------
 	template <typename ... Args>
 	exception::exception (exception cause, const char* function, const char* source, int line, Args&& ... args)
-		: m_function (function),
+		: cpptrace::runtime_error (_create (false, function, source, line, std::forward<Args> (args)...)),
+		  m_function (function),
 		  m_source (source),
 		  m_line (line),
 		  m_text (_create (false, function, source, line, std::forward<Args> (args)...)),
@@ -111,7 +112,7 @@ namespace bsw {
 	template <typename ... Args>
 	exception::exception ([[maybe_unused]] dummy_t custom, std::string prefix,
 						  const char* function, const char* source, int line, Args&& ... args)
-		:
+		: cpptrace::runtime_error (_create (false, function, source, line, prefix, std::forward<Args> (args)...)),
 		m_function (function),
 		m_source (source),
 		m_line (line),

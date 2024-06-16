@@ -45,11 +45,12 @@ if (is_top_level)
 endif()
 
 
+add_subdirectory(ext)
 
 add_subdirectory(src)
 if (bsw_ENABLE_TESTING)
     add_subdirectory(test)
-    add_subdirectory(ext)
+
 endif()
 
 
