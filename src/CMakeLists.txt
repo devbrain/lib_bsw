@@ -328,9 +328,7 @@ endif ()
 file(MAKE_DIRECTORY ${PROJECT_CONFIG_INCLUDE}/bsw)
 configure_file(configure.h.in ${PROJECT_CONFIG_INCLUDE}/bsw/bsw_config.h @ONLY)
 
-if (DEFINED bsw_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS "${bsw_SHARED_LIBS}")
-endif ()
+
 
 add_library(bsw
         ${src}
