@@ -395,6 +395,7 @@ target_link_libraries(bsw
             ${BROTLI_LIBRARIES}
             ${win32_libs}
             cpptrace::cpptrace
+            Boost::pfr
         )
 
 # On windows copy cpptrace.dll to the same directory as the executable for your_target

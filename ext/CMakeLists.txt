@@ -14,7 +14,7 @@ set(FETCHCONTENT_QUIET off)
 if (bsw_ENABLE_TESTING)
     add_subdirectory(doctest)
 endif()
-
+add_subdirectory(pfr)
 add_subdirectory(cpptrace)
 
 

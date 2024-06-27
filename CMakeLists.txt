@@ -58,7 +58,7 @@ if (bsw_ENABLE_TESTING)
 endif()
 
 
-if (bsw_INCLUDE_PACKAGING)
-    add_subdirectory(packaging)
-endif ()
+#if (bsw_INCLUDE_PACKAGING)
+#    add_subdirectory(packaging)
+#endif ()
 
