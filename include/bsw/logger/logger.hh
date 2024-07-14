@@ -20,8 +20,8 @@
  * If the logger cannot convert the passed arguments into strings, a compilation error is issued.
  */
 
-#if defined(ONYX_MODULE_NAME)
-#define EVLOG_MODULE_NAME STRINGIZE(ONYX_MODULE_NAME)
+#if defined(LOGGER_MODULE_NAME)
+#define EVLOG_MODULE_NAME STRINGIZE(LOGGER_MODULE_NAME)
 #else
 #define EVLOG_MODULE_NAME ""
 #endif

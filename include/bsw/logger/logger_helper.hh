@@ -25,50 +25,50 @@ namespace bsw::logger {
     post_record (rec);                                                                      \
   } while (0)
 
-#if !defined(TRACE_LEVEL)
+#if !defined(EVLOG_TRACE_LEVEL)
 #   if !(defined NDEBUG)
-#      define TRACE_LEVEL 6
+#      define EVLOG_TRACE_LEVEL 7
 #   else
-#      define TRACE_LEVEL 6
+#      define EVLOG_TRACE_LEVEL 6
 #   endif
-#endif // TRACE_LEVEL
+#endif // EVLOG_TRACE_LEVEL
 
-#if TRACE_LEVEL > 1
+#if EVLOG_TRACE_LEVEL > 1
 #define EV_LOGGER_TRACE_EVLOG_FATAL(MODULE, FUNCTION, FILE, LINE, ...)    \
   EV_LOGGER_TRACE (::bsw::logger::eFATAL, MODULE, FUNCTION, FILE, LINE, ##__VA_ARGS__)
 #else
 #define EV_LOGGER_TRACE_EVLOG_FATAL(MODULE, FUNCTION, FILE, LINE, ...)            ((void)0)
 #endif
 
-#if TRACE_LEVEL > 2
+#if EVLOG_TRACE_LEVEL > 2
 #define EV_LOGGER_TRACE_EVLOG_ERROR(MODULE, FUNCTION, FILE, LINE, ...)    \
   EV_LOGGER_TRACE (::bsw::logger::eERROR, MODULE, FUNCTION, FILE, LINE,  ##__VA_ARGS__)
 #else
 #define EV_LOGGER_TRACE_EVLOG_ERROR(MODULE, FUNCTION, FILE, LINE, ...)            ((void)0)
 #endif
 
-#if TRACE_LEVEL > 3
+#if EVLOG_TRACE_LEVEL > 3
 #define EV_LOGGER_TRACE_EVLOG_WARNING(MODULE, FUNCTION, FILE, LINE, ...) \
   EV_LOGGER_TRACE (::bsw::logger::eWARNING, MODULE, FUNCTION, FILE, LINE, ##__VA_ARGS__)
 #else
 #define EV_LOGGER_TRACE_EVLOG_WARNING(MODULE, FUNCTION, FILE, LINE, ...)            ((void)0)
 #endif
 
-#if TRACE_LEVEL > 4
+#if EVLOG_TRACE_LEVEL > 4
 #define EV_LOGGER_TRACE_EVLOG_NOTICE(MODULE, FUNCTION, FILE, LINE, ...)    \
   EV_LOGGER_TRACE (::bsw::logger::eNOTICE, MODULE, FUNCTION, FILE, LINE,  ##__VA_ARGS__)
 #else
 #define EV_LOGGER_TRACE_EVLOG_NOTICE(MODULE, FUNCTION, FILE, LINE, ...)            ((void)0)
 #endif
 
-#if TRACE_LEVEL > 5
+#if EVLOG_TRACE_LEVEL > 5
 #define EV_LOGGER_TRACE_EVLOG_INFO(MODULE, FUNCTION, FILE, LINE, ...)    \
   EV_LOGGER_TRACE (::bsw::logger::eINFO, MODULE, FUNCTION, FILE, LINE,  ##__VA_ARGS__)
 #else
 #define EV_LOGGER_TRACE_EVLOG_INFO(MODULE, FUNCTION, FILE, LINE, ...)                 ((void)0)
 #endif
 
-#if TRACE_LEVEL > 6
+#if EVLOG_TRACE_LEVEL > 6
 #define EV_LOGGER_TRACE_EVLOG_DEBUG(MODULE, FUNCTION, FILE, LINE, ...)	\
   EV_LOGGER_TRACE (logger::eDEBUG, MODULE, FUNCTION, FILE, LINE, ##__VA_ARGS__)
 #else

@@ -74,14 +74,14 @@ namespace bsw::logger::priv {
 		print (os, std::forward<Args> (rest)...); // this resolves to either myself or print(arg0)
 	}
 
-	class multi_setter_c {
+	class multi_printer {
 	 public:
-		explicit multi_setter_c (record& record)
+		explicit multi_printer (record& record)
 			: m_record (record) {
 		}
 
 		template <typename... Args>
-		void set (Args&& ... rest) {
+		void print (Args&& ... rest) {
 			std::ostringstream os;
 			print (os, std::forward<Args> (rest)...);
 			m_record.m_message = os.str ();

@@ -13,11 +13,11 @@
 
 namespace bsw::logger {
 	namespace priv {
-		class multi_setter_c;
+		class multi_printer;
 	}
 
 	class BSW_EXPORT record {
-		friend class priv::multi_setter_c;
+		friend class priv::multi_printer;
 
 	 public:
 		record (level_t level, const locus& locus);
