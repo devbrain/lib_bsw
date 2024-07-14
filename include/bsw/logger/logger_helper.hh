@@ -70,7 +70,7 @@ namespace bsw::logger {
 
 #if EVLOG_TRACE_LEVEL > 6
 #define EV_LOGGER_TRACE_EVLOG_DEBUG(MODULE, FUNCTION, FILE, LINE, ...)	\
-  EV_LOGGER_TRACE (logger::eDEBUG, MODULE, FUNCTION, FILE, LINE, ##__VA_ARGS__)
+  EV_LOGGER_TRACE (::bsw::logger::eDEBUG, MODULE, FUNCTION, FILE, LINE, ##__VA_ARGS__)
 #else
 #define EV_LOGGER_TRACE_EVLOG_DEBUG(MODULE, FUNCTION, FILE, LINE, ...)            ((void)0)
 #endif
