@@ -50,28 +50,21 @@ namespace bsw::logger::priv {
 		return os;
 	}
 
-	// What we want: print arbitrary number of arbitrary arguments safely
-	template <typename... Args>
-	void print (std::ostream& os, Args&& ... args);
-
 	/////////////////////////////////////////////////////////////////////////
 	// implementation
 
-	// handles no-argument case
-	void print (std::ostream& os);
-
 	// base case, terminating recursion
 	template <typename Arg0>
-	inline void print (std::ostream& os, Arg0&& arg0) {
+	inline void print_impl (std::ostream& os, Arg0&& arg0) {
 		os << std::forward<Arg0> (arg0);
 	}
 
 	template <typename Arg0, typename... Args>
-	inline void print (std::ostream& os, Arg0&& arg0, Args&& ... rest) {
+	inline void print_impl (std::ostream& os, Arg0&& arg0, Args&& ... rest) {
 		// print the first argument.
 		os << std::forward<Arg0> (arg0);
 		// recursion for rest arguments
-		print (os, std::forward<Args> (rest)...); // this resolves to either myself or print(arg0)
+		print_impl (os, std::forward<Args> (rest)...); // this resolves to either myself or print(arg0)
 	}
 
 	class multi_printer {
@@ -83,7 +76,7 @@ namespace bsw::logger::priv {
 		template <typename... Args>
 		void print (Args&& ... rest) {
 			std::ostringstream os;
-			print (os, std::forward<Args> (rest)...);
+			print_impl (os, std::forward<Args> (rest)...);
 			m_record.m_message = os.str ();
 		}
 
