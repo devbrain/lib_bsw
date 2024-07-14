@@ -21,7 +21,7 @@ namespace bsw::logger {
     locus locus_ (MODULE, FILE, FUNCTION, LINE);                                            \
     auto rec = std::make_shared<record> (SEVERITY, locus_);                                 \
     priv::multi_setter_c ms (*rec.get ());                                                  \
-    ms.set (__VA_ARGS__) ;                                                                  \
+    ms.print (__VA_ARGS__) ;                                                                \
     post_record (rec);                                                                      \
   } while (0)
 
