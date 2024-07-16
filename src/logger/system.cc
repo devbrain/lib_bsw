@@ -31,11 +31,11 @@ namespace bsw::logger {
 
 		class system {
 		 public:
-			bool add_device (const device_ptr_t& device);
+			bool add_device (const device_ptr_t& device) const;
 
-			void post (const record_ptr_t& record);
+			void post (const record_ptr_t& record) const;
 
-			void shutdown ();
+			void shutdown () const;
 			system ();
 			~system ();
 
@@ -123,14 +123,16 @@ namespace bsw::logger {
 		}
 
 		// -------------------------------------------------------------
-		void system::shutdown () {
-			m_pimpl->shutdown ();
-			delete s_instance;
-			s_instance = nullptr;
+		void system::shutdown () const {
+			if (s_instance) {
+				m_pimpl->shutdown ();
+				delete s_instance;
+				s_instance = nullptr;
+			}
 		}
 
 		// -------------------------------------------------------------
-		bool system::add_device (const device_ptr_t& device) {
+		bool system::add_device (const device_ptr_t& device) const {
 
 			if (!device->is_opened ()) {
 				if (!device->open ()) {
@@ -143,7 +145,7 @@ namespace bsw::logger {
 		}
 
 		// -------------------------------------------------------------
-		void system::post (const record_ptr_t& record) {
+		void system::post (const record_ptr_t& record) const {
 			if (m_pimpl->m_ao) {
 				m_pimpl->m_ao->enqueue ([this] (record_ptr_t r) { m_pimpl->post (r); }, record);
 			} else {
@@ -153,7 +155,7 @@ namespace bsw::logger {
 	} // ns priv
 
 	void add_device (const device_ptr_t& device) {
-		system::instance ()->add_device (device);
+		(void)system::instance ()->add_device (device);
 	}
 
 	void post (const record_ptr_t& record) {
@@ -161,7 +163,9 @@ namespace bsw::logger {
 	}
 
 	void shutdown () {
-		system::instance ()->shutdown ();
+		if (!was_shut_down) {
+			system::instance ()->shutdown ();
+		}
 	}
 } // ns logger
 
