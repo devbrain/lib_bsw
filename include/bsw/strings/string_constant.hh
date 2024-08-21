@@ -242,19 +242,19 @@ namespace bsw {
 
 // Different length strings can never be equal
   template <std::size_t N, typename Right, typename std::enable_if<N != length_of<Right>::value, bool>::type = 0>
-  constexpr bool operator == (const string_constant<N>& lhs, const Right& rhs) {
+  constexpr bool operator == ([[maybe_unused]] const string_constant<N>& lhs,[[maybe_unused]]  const Right& rhs) {
     return false;
   }
 
 // Different length strings can never be equal
   template <typename Left, std::size_t N, typename std::enable_if<length_of<Left>::value != N, bool>::type = 0>
-  constexpr bool operator == (const Left& lhs, const string_constant<N>& rhs) {
+  constexpr bool operator == ([[maybe_unused]] const Left& lhs, [[maybe_unused]] const string_constant<N>& rhs) {
     return false;
   }
 
 // Different length strings can never be equal
   template <std::size_t X, std::size_t Y, typename std::enable_if<X != Y, bool>::type = 0>
-  constexpr bool operator == (const string_constant<X>& lhs, const string_constant<Y>& rhs) {
+  constexpr bool operator == ([[maybe_unused]] const string_constant<X>& lhs, [[maybe_unused]] const string_constant<Y>& rhs) {
     return false;
   }
 
@@ -267,7 +267,7 @@ namespace bsw {
 // which handles figuring out the length of the string for you
   template <std::size_t N>
   constexpr auto string_factory (const char(& value)[N]) {
-    return string_factory (value, typename std::make_index_sequence<N - 1>{});
+    return string_factory (value, std::make_index_sequence<N - 1>{});
   }
 } // ns bsw
 #endif //BSW_STRING_CONSTANT_HH

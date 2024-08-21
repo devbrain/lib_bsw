@@ -26,6 +26,15 @@
 #define EVLOG_MODULE_NAME ""
 #endif
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#endif
+
 #define EVLOG_TRACE(SEVERITY, ...)  PPCAT (EV_LOGGER_TRACE_,SEVERITY)  (EVLOG_MODULE_NAME, FUNCTION_NAME, __FILE__, __LINE__, ##__VA_ARGS__)
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 #endif

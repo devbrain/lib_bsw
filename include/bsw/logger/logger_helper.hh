@@ -14,6 +14,10 @@ namespace bsw::logger {
 
 } // ns logger
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#endif
 
 #define EV_LOGGER_TRACE(SEVERITY, MODULE, FUNCTION, FILE, LINE, ...)                        \
   do {                                                                                      \
@@ -73,6 +77,10 @@ namespace bsw::logger {
   EV_LOGGER_TRACE (::bsw::logger::eDEBUG, MODULE, FUNCTION, FILE, LINE, ##__VA_ARGS__)
 #else
 #define EV_LOGGER_TRACE_EVLOG_DEBUG(MODULE, FUNCTION, FILE, LINE, ...)            ((void)0)
+#endif
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
 #endif
 
 #endif

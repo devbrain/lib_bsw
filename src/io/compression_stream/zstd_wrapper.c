@@ -2,7 +2,7 @@
 // Created by igor on 29/07/2021.
 //
 
-#if defined(__GNUC__) || defined(__GNUG__)
+#if (defined(__GNUC__) || defined(__GNUG__)) && !defined(__clang__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
@@ -214,7 +214,7 @@ static int ZWRAPC_finishWithError (ZWRAP_CCtx* zwc, z_streamp strm, int error) {
 
 static int ZWRAPC_finishWithErrorMsg (z_streamp strm, const char* message) {
   ZWRAP_CCtx* zwc = (ZWRAP_CCtx*) strm->state;
-  strm->msg = message;
+  strm->msg = (char*)message;
   if (zwc == NULL)
     return Z_STREAM_ERROR;
 
@@ -237,6 +237,8 @@ static struct internal_state* convert_into_sis (void* ptr) {
 
 int zstd_deflate_init (z_streamp strm, int level, const char* version, int stream_size) {
   ZWRAP_CCtx* zwc;
+  (void)version;
+  (void)stream_size;
 
   LOG_WRAPPERC("- deflateInit level=%d\n", level);
 
@@ -262,6 +264,10 @@ int zstd_deflate_init2 (z_streamp strm, int level,
                         int windowBits,
                         int memLevel,
                         int strategy, const char* version, int stream_size) {
+  (void)method;
+  (void)windowBits;
+  (void)memLevel;
+  (void)strategy;
   return zstd_deflate_init (strm, level, version, stream_size);
 }
 
@@ -451,10 +457,14 @@ int zstd_deflate_end (z_streamp strm) {
 }
 
 uLong zstd_deflate_bound (z_streamp strm, uLong sourceLen) {
+  (void)strm;
   return ZSTD_compressBound (sourceLen);
 }
 
 int zstd_deflate_params (z_streamp strm, int level, int strategy) {
+  (void)strm;
+  (void)level;
+  (void)strategy;
   return Z_OK;
 }
 
@@ -532,7 +542,7 @@ static int ZWRAPD_finishWithError (ZWRAP_DCtx* zwd, z_streamp strm, int error) {
 
 static int ZWRAPD_finishWithErrorMsg (z_streamp strm, const char* message) {
   ZWRAP_DCtx* const zwd = (ZWRAP_DCtx*) strm->state;
-  strm->msg = message;
+  strm->msg = (char*)message;
   if (zwd == NULL)
     return Z_STREAM_ERROR;
 
@@ -945,26 +955,37 @@ int zstd_inflate_sync (z_streamp strm) {
 
 /* Advanced compression functions */
 int zstd_deflate_copy (z_streamp dest, z_streamp source) {
+  (void)dest;
   return ZWRAPC_finishWithErrorMsg (source, "deflateCopy is not supported!");
 }
 
 int zstd_deflate_tune (z_streamp strm, int good_length, int max_lazy, int nice_length, int max_chain) {
+  (void)strm;
+  (void)good_length;
+  (void)max_lazy;
+  (void)nice_length;
+  (void)max_chain;
   return ZWRAPC_finishWithErrorMsg (strm, "deflateTune is not supported!");
 }
 
 #if ZLIB_VERNUM >= 0x1260
 
 int zstd_deflate_pending (z_streamp strm, unsigned* pending, int* bits) {
+  (void)pending;
+  (void)bits;
   return ZWRAPC_finishWithErrorMsg (strm, "deflatePending is not supported!");
 }
 
 #endif
 
 int zstd_deflate_prime (z_streamp strm, int bits, int value) {
+  (void)bits;
+  (void)value;
   return ZWRAPC_finishWithErrorMsg (strm, "deflatePrime is not supported!");
 }
 
 int zstd_deflate_set_header (z_streamp strm, gz_headerp head) {
+  (void)head;
   return ZWRAPC_finishWithErrorMsg (strm, "deflateSetHeader is not supported!");
 }
 

@@ -126,11 +126,11 @@ inline bool random::next_bool () {
 }
 
 inline float random::next_float () {
-	return float (next ()) / 0x7FFFFFFF;
+	return float (next ()) / (float)0x7FFFFFFF;
 }
 
 inline double random::next_double () {
-	return double (next ()) / 0x7FFFFFFF;
+	return double (next ()) / (double)0x7FFFFFFF;
 }
 
 }

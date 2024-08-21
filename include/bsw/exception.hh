@@ -174,6 +174,11 @@ namespace bsw {
 #define __PRETTY_FUNCTION__ __FUNCSIG__
 #endif
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#endif
+
 #define RAISE_EX(...) ::bsw::raise_exception(__PRETTY_FUNCTION__, __FILE__, __LINE__,  ##__VA_ARGS__)
 #define RAISE_EX_WITH_CAUSE(CAUSE, ...) ::bsw::raise_exception(CAUSE, __PRETTY_FUNCTION__, __FILE__, __LINE__,  ##__VA_ARGS__)
 
@@ -181,4 +186,8 @@ namespace bsw {
 #define RAISE_EX_WITH_CAUSE_CUSTOM(Exception, CAUSE, ...) ::bsw::custom_raiser<Exception>::raise_exception(CAUSE, __PRETTY_FUNCTION__, __FILE__, __LINE__,  ##__VA_ARGS__)
 
 #define ENFORCE(expr) while (!(expr)) {::bsw::raise_exception(__PRETTY_FUNCTION__, __FILE__, __LINE__, "Assertion failed: " STRINGIZE(expr));}
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 #endif

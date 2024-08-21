@@ -184,9 +184,15 @@ namespace bsw {
         limitCheck = -i;
       }
     }
-#if defined(__GNUC__) || defined(__GNUG__)
+
+
+#if (defined(__GNUC__) || defined(__GNUG__)) && !defined(__clang__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wimplicit-fallthrough="
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
+#if (defined(__GNUC__) || defined(__GNUG__))
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsign-compare"
 #endif
     uintmax_t result = 0;
@@ -285,7 +291,7 @@ namespace bsw {
           return false;
       }
     }
-#if defined(__GNUC__) || defined(__GNUG__)
+#if (defined(__GNUC__) || defined(__GNUG__)) && !defined(__clang__)
 #pragma GCC diagnostic pop
 #endif
 
