@@ -111,6 +111,7 @@ set (src
         ${PROJECT_INCLUDE}/bsw/exception.hh
         exception.cc
         ${PROJECT_INCLUDE}/bsw/register_at_exit.hh
+        register_at_exit.cc
         ${PROJECT_INCLUDE}/bsw/singleton.hh
         ${PROJECT_INCLUDE}/bsw/array_view.hh
         ${PROJECT_INCLUDE}/bsw/sorted_array.hh
