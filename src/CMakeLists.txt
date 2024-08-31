@@ -107,7 +107,7 @@ set (src
         ${PROJECT_INCLUDE}/bsw/mp/introspection.hh
 
         ${PROJECT_INCLUDE}/bsw/pp_for_each.h
-        ${PROJECT_INCLUDE}/bsw/macros.hh
+
         ${PROJECT_INCLUDE}/bsw/exception.hh
         exception.cc
         ${PROJECT_INCLUDE}/bsw/register_at_exit.hh
@@ -316,6 +316,13 @@ set (src
 
         ${PROJECT_INCLUDE}/bsw/uuid_generator.hh
         uuid_generator.cc
+
+        ${PROJECT_INCLUDE}/bsw/macros.hh
+        ${PROJECT_INCLUDE}/bsw/macros/preprocessor_for_each.h
+        ${PROJECT_INCLUDE}/bsw/macros/ppcat.hh
+        ${PROJECT_INCLUDE}/bsw/macros/stringize.hh
+        ${PROJECT_INCLUDE}/bsw/macros/pp_narg.hh
+
 )
 # --------------------------------------------------------------------------------
 # LIBRARY
