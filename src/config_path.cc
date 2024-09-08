@@ -27,7 +27,8 @@
 static std::filesystem::path get_config_from_home() {
     const char* home = getenv("HOME");
     if (!home) {
-        return bsw::get_executable_path() / "config";
+        auto exe_path = bsw::get_executable_path();
+        return exe_path.parent_path() / "config";
     }
     return std::filesystem::path(home) / ".config";
 }
