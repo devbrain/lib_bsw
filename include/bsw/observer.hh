@@ -199,7 +199,7 @@ namespace bsw {
   template <typename ... Events>
   class observer : public detail::observer_monitor {
     public:
-      virtual ~observer () = default;
+      ~observer () override = default;
   };
 
   template <typename EventType, typename ... RestEventTypes>
@@ -212,7 +212,7 @@ namespace bsw {
       using detail::observer_monitor::on_subscribed;
       using detail::observer_monitor::on_unsubscribed;
 
-      virtual ~observer () = default;
+      ~observer () override = default;
   };
 
   // ==================================================================================

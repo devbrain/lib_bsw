@@ -106,7 +106,8 @@ set (src
         ${PROJECT_INCLUDE}/bsw/mp/constexpr_for.hh
         ${PROJECT_INCLUDE}/bsw/mp/introspection.hh
 
-        ${PROJECT_INCLUDE}/bsw/pp_for_each.h
+        ${PROJECT_INCLUDE}/bsw/config_path.hh
+        config_path.cc
 
         ${PROJECT_INCLUDE}/bsw/exception.hh
         exception.cc
