@@ -423,6 +423,7 @@ target_link_libraries(bsw
             thirdparty::cista
             thirdparty::json
             thirdparty::yml
+            thirdparty::pugixml
         )
 
 # On windows copy cpptrace.dll to the same directory as the executable for your_target

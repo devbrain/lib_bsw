@@ -19,5 +19,6 @@ add_subdirectory(cpptrace)
 add_subdirectory(cista)
 add_subdirectory(nlohmann)
 add_subdirectory(yaml)
+add_subdirectory(pugixml)
 
 
