@@ -16,5 +16,8 @@ if (bsw_ENABLE_TESTING)
 endif()
 add_subdirectory(pfr)
 add_subdirectory(cpptrace)
+add_subdirectory(cista)
+add_subdirectory(nlohmann)
+add_subdirectory(yaml)
 
 

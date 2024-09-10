@@ -3,7 +3,7 @@ add_executable(unittest
 
         bsw/test_introspection.cc
         bsw/test_type_list.cc
-        bsw/test_on_of.cc
+        bsw/test_one_of.cc
         bsw/test_constexpr_for.cc
         bsw/test_type_name.cc
         bsw/strings/string_constant_test.cc
@@ -24,6 +24,7 @@ add_executable(unittest
         bsw/test_uuid.cc
         bsw/test_random.cc
         bsw/uri_test.cc
+        bsw/s11n/test_s11n.cc
         )
 
 target_link_libraries(unittest

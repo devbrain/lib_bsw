@@ -324,6 +324,21 @@ set (src
         ${PROJECT_INCLUDE}/bsw/macros/stringize.hh
         ${PROJECT_INCLUDE}/bsw/macros/pp_narg.hh
 
+        ${PROJECT_INCLUDE}/bsw/s11n/s11n.hh
+        ${PROJECT_INCLUDE}/bsw/s11n/detail/cista.hh
+        ${PROJECT_INCLUDE}/bsw/s11n/detail/traits_s11n.hh
+        ${PROJECT_INCLUDE}/bsw/s11n/detail/archive.hh
+        ${PROJECT_INCLUDE}/bsw/s11n/detail/s11n_convert.hh
+        s11n/yaml_archive_impl.hh
+        s11n/json_archive_impl.hh
+        s11n/archive.cc
+        s11n/yaml_archive_impl.cc
+        s11n/json_archive_impl.cc
+
+        ${PROJECT_INCLUDE}/bsw/json/json.hh
+        ${PROJECT_INCLUDE}/bsw/json/json_fwd.hh
+        json/json.cc
+
 )
 # --------------------------------------------------------------------------------
 # LIBRARY
@@ -405,6 +420,9 @@ target_link_libraries(bsw
             ${win32_libs}
             cpptrace::cpptrace
             Boost::pfr
+            thirdparty::cista
+            thirdparty::json
+            thirdparty::yml
         )
 
 # On windows copy cpptrace.dll to the same directory as the executable for your_target
