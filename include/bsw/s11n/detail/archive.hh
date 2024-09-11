@@ -175,7 +175,7 @@ namespace bsw::s11n::detail {
                 if constexpr (is_complete_v <s11n_converter <value_type>>) {
                     std::string encoded;
                     impl()->read_string(encoded);
-                    v = s11n_converter <value_type>::from_string(v);
+                    v = s11n_converter <value_type>::from_string(encoded);
                 } else {
                     if constexpr (std::is_same_v <value_type, bool>) {
                         impl()->read_bool(v);

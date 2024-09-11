@@ -17,7 +17,7 @@ namespace bsw::s11n::detail {
 
     template<typename T>
     struct is_simple {
-        static constexpr bool value = std::is_arithmetic_v <T> || std::is_floating_point_v<T>;
+        static constexpr bool value = std::is_arithmetic_v <T> || std::is_floating_point_v<T> || std::is_enum_v<T>;
     };
 
     template<>
