@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <string>
 #include <memory>
+#include <set>
 #include <ostream>
 #include <functional>
 #include <optional>
@@ -16,6 +17,7 @@
 #include <bsw/s11n/detail/s11n_convert.hh>
 #include <bsw/s11n/detail/cista.hh>
 #include <bsw/exception.hh>
+#include <bsw/mp/type_name/type_name.hpp>
 
 namespace bsw::s11n::detail {
     class serialization_archive_impl {
@@ -225,6 +227,22 @@ namespace bsw::s11n::detail {
             const deserialization_archive_impl* m_temp;
     };
 
+    template<typename T>
+    struct check_schema {
+        check_schema() {
+            constexpr auto schema = T::serialization_schema();
+            std::set <std::string_view> seen;
+            for (const auto& s : schema) {
+                auto val = std::get <1>(s);
+                if (seen.find(val) == seen.end()) {
+                    seen.insert(val);
+                } else {
+                    RAISE_EX("Serialization schema for ", type_name_v<T>, " failed. Duplicate key ", val, " found");
+                }
+            }
+        }
+    };
+
     template<class T>
     void serialize_object(const T& obj, const serialization_archive& ar);
 
@@ -259,6 +277,7 @@ namespace bsw::s11n::detail {
 
     template<class T>
     void serialize_object(const T& obj, const serialization_archive& ar) {
+        static check_schema<T> check;
         ar.start_object();
         int idx = 0;
         cista::for_each_field(obj, [&ar, &idx](auto& field) {
@@ -293,7 +312,9 @@ namespace bsw::s11n::detail {
         NS::vector <T>& m_arr;                                              \
     }
     BSW_GENERATE_ARRAY_WRAPPER_VEC(std);
+
     BSW_GENERATE_ARRAY_WRAPPER_VEC(cista::raw);
+
     BSW_GENERATE_ARRAY_WRAPPER_VEC(cista::offset);
 
 #define BSW_GENERATE_ARRAY_WRAPPER_ARR(NS)                                  \
@@ -349,6 +370,7 @@ namespace bsw::s11n::detail {
 
     template<class T>
     void deserialize_object(T& obj, const deserialization_archive& ar) {
+        static check_schema<T> check;
         ENFORCE(ar.is_map());
         int idx = 0;
         cista::for_each_field(obj, [&ar, &idx](auto& field) {
