@@ -20,5 +20,6 @@ add_subdirectory(cista)
 add_subdirectory(nlohmann)
 add_subdirectory(yaml)
 add_subdirectory(pugixml)
+add_subdirectory(strong_type)
 
 

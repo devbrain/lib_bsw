@@ -11,7 +11,9 @@
 #include <string>
 #include <type_traits>
 #include <optional>
+#include <filesystem>
 #include <bsw/s11n/detail/cista.hh>
+#include <strong_type/strong_type.hpp>
 
 namespace bsw::s11n::detail {
 
@@ -23,6 +25,22 @@ namespace bsw::s11n::detail {
     template<>
     struct is_simple <std::string> {
         static constexpr bool value = true;
+    };
+
+    template<>
+    struct is_simple <std::filesystem::path> {
+        static constexpr bool value = true;
+    };
+
+    template<typename T>
+    struct is_strong {
+        static constexpr bool value = false;
+    };
+
+    template<typename T, typename Tag, typename ... M>
+    struct is_strong <strong::type<T, Tag, M...>> {
+        static constexpr bool value = true;
+        using inner = T;
     };
 
     template<>

@@ -18,6 +18,7 @@
 #include <bsw/s11n/detail/cista.hh>
 #include <bsw/exception.hh>
 #include <bsw/mp/type_name/type_name.hpp>
+#include <bsw/magic_enum/magic_enum.hpp>
 
 namespace bsw::s11n::detail {
     class serialization_archive_impl {
@@ -78,7 +79,13 @@ namespace bsw::s11n::detail {
                 if constexpr (is_complete_v <s11n_converter <value_type>>) {
                     m_impl->write_string(s11n_converter <value_type>::to_string(v).c_str());
                 } else {
-                    if constexpr (std::is_same_v <value_type, bool>) {
+                    if constexpr (is_strong<T>::value) {
+                        write_value(v.value_of());
+                    } else if constexpr (std::is_enum_v<T>) {
+                        m_impl->write_string(magic_enum::enum_name(v).begin());
+                    } else if constexpr (std::is_same_v <value_type, std::filesystem::path>) {
+                        m_impl->write_string(v.u8string().c_str());
+                    } else if constexpr (std::is_same_v <value_type, bool>) {
                         m_impl->write_bool(v);
                     } else if constexpr (std::is_same_v <value_type, uint8_t>) {
                         m_impl->write_u8(v);
@@ -179,7 +186,24 @@ namespace bsw::s11n::detail {
                     impl()->read_string(encoded);
                     v = s11n_converter <value_type>::from_string(encoded);
                 } else {
-                    if constexpr (std::is_same_v <value_type, bool>) {
+                    if constexpr (is_strong<T>::value) {
+                        typename is_strong<T>::inner temp;
+                        read(temp);
+                        v = T(temp);
+                    } else if constexpr (std::is_enum_v<T>) {
+                        std::string encoded;
+                        impl()->read_string(encoded);
+                        auto cast_result = magic_enum::enum_cast<T>(encoded);
+                        if (cast_result) {
+                            v = *cast_result;
+                        } else {
+                            RAISE_EX("Can not convert from", encoded, "to enum ", type_name_v<T>);
+                        }
+                    } else if constexpr (std::is_same_v <value_type, std::filesystem::path>) {
+                        std::string encoded;
+                        impl()->read_string(encoded);
+                        v = encoded;
+                    } else if constexpr (std::is_same_v <value_type, bool>) {
                         impl()->read_bool(v);
                     } else if constexpr (std::is_same_v <value_type, uint8_t>) {
                         impl()->read_u8(v);

@@ -335,6 +335,18 @@ set (src
         s11n/yaml_archive_impl.cc
         s11n/json_archive_impl.cc
 
+
+        ${PROJECT_INCLUDE}/bsw/magic_enum/magic_enum_all.hpp
+        ${PROJECT_INCLUDE}/bsw/magic_enum/magic_enum_containers.hpp
+        ${PROJECT_INCLUDE}/bsw/magic_enum/magic_enum_flags.hpp
+        ${PROJECT_INCLUDE}/bsw/magic_enum/magic_enum_format.hpp
+        ${PROJECT_INCLUDE}/bsw/magic_enum/magic_enum_fuse.hpp
+        ${PROJECT_INCLUDE}/bsw/magic_enum/magic_enum.hpp
+        ${PROJECT_INCLUDE}/bsw/magic_enum/magic_enum_iostream.hpp
+        ${PROJECT_INCLUDE}/bsw/magic_enum/magic_enum_switch.hpp
+        ${PROJECT_INCLUDE}/bsw/magic_enum/magic_enum_utility.hpp
+
+
         ${PROJECT_INCLUDE}/bsw/json/json.hh
         ${PROJECT_INCLUDE}/bsw/json/json_fwd.hh
         json/json.cc
@@ -424,6 +436,7 @@ target_link_libraries(bsw
             thirdparty::json
             thirdparty::yml
             thirdparty::pugixml
+            thirdparty::strong_type
         )
 
 # On windows copy cpptrace.dll to the same directory as the executable for your_target
